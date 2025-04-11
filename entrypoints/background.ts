@@ -10,10 +10,10 @@ export default defineBackground(async () => {
     await browser.action.setIcon({
       path: isLightModeEnabled
         ? {
-            128: 'icon/128.png',
+            128: 'icon/dark-128.png',
           }
         : {
-            128: 'icon/dark-128.png',
+            128: 'icon/128.png',
           },
     });
 
