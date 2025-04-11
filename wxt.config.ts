@@ -2,10 +2,14 @@ import { defineConfig } from 'wxt';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-  modules: ['@wxt-dev/module-react'],
   manifest: {
     name: 'Always Light Mode',
     description: 'Always light mode',
-    permissions: ['<all_urls>'],
+    permissions: ['storage', 'tabs', 'activeTab'],
+    action: {
+      default_icon: {
+        128: 'icon/light-128.png',
+      },
+    },
   },
 });
