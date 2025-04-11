@@ -1,7 +1,6 @@
 import { lightModeEnabledStorage } from './utils/storage';
 
 export default defineBackground(async () => {
-  // Handle icon click
   browser.action.onClicked.addListener(async () => {
     const isLightModeEnabled = await lightModeEnabledStorage.getValue();
 
@@ -11,10 +10,10 @@ export default defineBackground(async () => {
     await browser.action.setIcon({
       path: isLightModeEnabled
         ? {
-            128: 'icon/dark-128.png',
+            128: 'icon/128.png',
           }
         : {
-            128: 'icon/light-128.png',
+            128: 'icon/dark-128.png',
           },
     });
 

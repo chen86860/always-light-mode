@@ -8,7 +8,7 @@ export default defineConfig({
     permissions: ['storage', 'tabs', 'activeTab'],
     action: {
       default_icon: {
-        128: 'icon/light-128.png',
+        128: 'icon/128.png',
       },
     },
   },
