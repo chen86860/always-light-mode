@@ -80,12 +80,10 @@ export default defineContentScript({
 
       document.documentElement.classList?.remove('dark');
 
-      console.log('deee');
-
       const meta = document.createElement('meta');
       meta.name = 'color-scheme';
       meta.content = 'light';
-      console.log({ meta });
+
       if (document.head) {
         document.head.appendChild(meta);
       }
