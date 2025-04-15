@@ -4,8 +4,7 @@ import { defineConfig } from 'wxt';
 export default defineConfig({
   manifest: {
     name: 'Always Light Mode',
-    description:
-      'This extension injects custom scripts to force websites into light mode, even when the system is set to dark mode.',
+    description: 'Keep websites in light mode, regardless of your system dark mode settings.',
     permissions: ['storage', 'activeTab'],
     action: {
       default_icon: {
