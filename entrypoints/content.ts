@@ -2,7 +2,6 @@ import { addLightModeStyle } from './utils/styles/light-mode';
 import { setupHeadObserver } from './utils/observers/head-observer';
 import { setupClassObserver } from './utils/observers/class-observer';
 import { lightModeEnabledStorage } from './utils/storage';
-import { override } from './utils/override';
 
 export default defineContentScript({
   matches: ['<all_urls>'],
@@ -11,9 +10,6 @@ export default defineContentScript({
     const isEnabled = await lightModeEnabledStorage.getValue();
 
     if (!isEnabled) return;
-
-    // Override matchMedia
-    override();
 
     // 监听 document.head 的创建和变化
     const setupDocumentObserver = () => {
@@ -49,5 +45,14 @@ export default defineContentScript({
 
     // 添加 light mode 样式
     addLightModeStyle();
+
+    // inject.js
+    const script = document.createElement('script');
+    script.src = browser.runtime.getURL('/inject.js'); // 外部脚本
+    script.onload = function () {
+      (this as HTMLScriptElement).remove();
+    };
+
+    (document.head || document.documentElement).appendChild(script);
   },
 });

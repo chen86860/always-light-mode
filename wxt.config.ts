@@ -11,5 +11,11 @@ export default defineConfig({
         128: 'icon/128.png',
       },
     },
+    web_accessible_resources: [
+      {
+        resources: ['inject.js'],
+        matches: ['<all_urls>'],
+      },
+    ],
   },
 });
