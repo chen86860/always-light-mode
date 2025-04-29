@@ -4,6 +4,9 @@
  * @param substitutions Optional substitutions for placeholders in the message
  * @returns The localized message
  */
-export const getMessage = (messageName: string, substitutions?: string | string[]): string => {
+export const getMessage = (
+  messageName: keyof typeof browser.i18n.getMessage,
+  substitutions?: string | string[],
+): string => {
   return browser.i18n.getMessage(messageName, substitutions);
 };
