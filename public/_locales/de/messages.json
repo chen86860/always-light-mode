@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Immer im Hellmodus",
+    "description": "The name of the extension"
+  },
+  "appDescription": {
+    "message": "Behält Websites im hellen Modus, unabhängig von den Dunkelmodus-Einstellungen Ihres Systems.",
+    "description": "The description of the extension"
+  }
+}

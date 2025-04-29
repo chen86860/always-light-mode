@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Sempre in Modalità Chiara",
+    "description": "The name of the extension"
+  },
+  "appDescription": {
+    "message": "Mantiene i siti web in modalità chiara, indipendentemente dalle impostazioni della modalità scura del sistema.",
+    "description": "The description of the extension"
+  }
+}

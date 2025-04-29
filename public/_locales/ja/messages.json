@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "常にライトモード",
+    "description": "The name of the extension"
+  },
+  "appDescription": {
+    "message": "システムのダークモード設定に関係なく、ウェブサイトをライトモードに保ちます。",
+    "description": "The description of the extension"
+  }
+}

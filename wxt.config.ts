@@ -3,8 +3,9 @@ import { defineConfig } from 'wxt';
 // See https://wxt.dev/api/config.html
 export default defineConfig({
   manifest: {
-    name: 'Always Light Mode',
-    description: 'Keep websites in light mode, regardless of your system dark mode settings.',
+    name: '__MSG_appName__',
+    description: '__MSG_appDescription__',
+    default_locale: 'en',
     permissions: ['storage', 'activeTab'],
     action: {
       default_icon: {

@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Siempre en Modo Claro",
+    "description": "The name of the extension"
+  },
+  "appDescription": {
+    "message": "Mantiene los sitios web en modo claro, independientemente de la configuración del modo oscuro de su sistema.",
+    "description": "The description of the extension"
+  }
+}
