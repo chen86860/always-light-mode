@@ -7,12 +7,36 @@
     "message": "Поддерживает веб-сайты в светлом режиме, независимо от настроек темного режима вашей системы.",
     "description": "The description of the extension"
   },
-  "disableOnSite": {
-    "message": "Отключить на этом сайте",
-    "description": "Context menu: disable light mode on the current site"
+  "forceLight": {
+    "message": "Принудительный светлый режим",
+    "description": "Popup: master toggle label"
   },
-  "enableOnSite": {
-    "message": "Включить на этом сайте",
-    "description": "Context menu: re-enable light mode on the current site"
+  "unsupportedPage": {
+    "message": "Недоступно на этой странице",
+    "description": "Popup: shown when the current page cannot be controlled"
+  },
+  "reloadHint": {
+    "message": "Изменения перезагружают страницу",
+    "description": "Popup: hint that toggling reloads the page"
+  },
+  "siteApplied": {
+    "message": "Светлый режим применён",
+    "description": "Popup: site status when light mode is applied"
+  },
+  "siteExcluded": {
+    "message": "Этот сайт исключён",
+    "description": "Popup: site status when the site is excluded"
+  },
+  "feedback": {
+    "message": "Обратная связь по почте",
+    "description": "Popup: feedback section toggle"
+  },
+  "feedbackPlaceholder": {
+    "message": "Опишите проблему…",
+    "description": "Popup: feedback textarea placeholder"
+  },
+  "feedbackSend": {
+    "message": "Отправить",
+    "description": "Popup: feedback send button"
   }
 }

@@ -7,12 +7,36 @@
     "message": "Keep websites in light mode, regardless of your system dark mode settings.",
     "description": "The description of the extension"
   },
-  "disableOnSite": {
-    "message": "Disable on this site",
-    "description": "Context menu: disable light mode on the current site"
+  "forceLight": {
+    "message": "Force light mode",
+    "description": "Popup: master toggle label"
   },
-  "enableOnSite": {
-    "message": "Enable on this site",
-    "description": "Context menu: re-enable light mode on the current site"
+  "unsupportedPage": {
+    "message": "Unavailable on this page",
+    "description": "Popup: shown when the current page cannot be controlled"
+  },
+  "reloadHint": {
+    "message": "Changes reload the page",
+    "description": "Popup: hint that toggling reloads the page"
+  },
+  "siteApplied": {
+    "message": "Light mode applied",
+    "description": "Popup: site status when light mode is applied"
+  },
+  "siteExcluded": {
+    "message": "This site is excluded",
+    "description": "Popup: site status when the site is excluded"
+  },
+  "feedback": {
+    "message": "Email feedback",
+    "description": "Popup: feedback section toggle"
+  },
+  "feedbackPlaceholder": {
+    "message": "Describe the problem…",
+    "description": "Popup: feedback textarea placeholder"
+  },
+  "feedbackSend": {
+    "message": "Send",
+    "description": "Popup: feedback send button"
   }
 }

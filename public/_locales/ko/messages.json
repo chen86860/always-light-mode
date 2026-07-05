@@ -7,12 +7,36 @@
     "message": "시스템의 다크 모드 설정과 상관없이 웹사이트를 라이트 모드로 유지합니다.",
     "description": "The description of the extension"
   },
-  "disableOnSite": {
-    "message": "이 사이트에서 비활성화",
-    "description": "Context menu: disable light mode on the current site"
+  "forceLight": {
+    "message": "라이트 모드 강제 적용",
+    "description": "Popup: master toggle label"
   },
-  "enableOnSite": {
-    "message": "이 사이트에서 활성화",
-    "description": "Context menu: re-enable light mode on the current site"
+  "unsupportedPage": {
+    "message": "이 페이지에서는 사용할 수 없음",
+    "description": "Popup: shown when the current page cannot be controlled"
+  },
+  "reloadHint": {
+    "message": "변경 시 페이지가 새로고침됩니다",
+    "description": "Popup: hint that toggling reloads the page"
+  },
+  "siteApplied": {
+    "message": "라이트 모드 적용됨",
+    "description": "Popup: site status when light mode is applied"
+  },
+  "siteExcluded": {
+    "message": "이 사이트는 제외됨",
+    "description": "Popup: site status when the site is excluded"
+  },
+  "feedback": {
+    "message": "이메일 피드백",
+    "description": "Popup: feedback section toggle"
+  },
+  "feedbackPlaceholder": {
+    "message": "문제를 설명해 주세요…",
+    "description": "Popup: feedback textarea placeholder"
+  },
+  "feedbackSend": {
+    "message": "보내기",
+    "description": "Popup: feedback send button"
   }
 }

@@ -7,12 +7,36 @@
     "message": "Mantiene los sitios web en modo claro, independientemente de la configuración del modo oscuro de su sistema.",
     "description": "The description of the extension"
   },
-  "disableOnSite": {
-    "message": "Desactivar en este sitio",
-    "description": "Context menu: disable light mode on the current site"
+  "forceLight": {
+    "message": "Forzar modo claro",
+    "description": "Popup: master toggle label"
   },
-  "enableOnSite": {
-    "message": "Activar en este sitio",
-    "description": "Context menu: re-enable light mode on the current site"
+  "unsupportedPage": {
+    "message": "No disponible en esta página",
+    "description": "Popup: shown when the current page cannot be controlled"
+  },
+  "reloadHint": {
+    "message": "Los cambios recargan la página",
+    "description": "Popup: hint that toggling reloads the page"
+  },
+  "siteApplied": {
+    "message": "Modo claro aplicado",
+    "description": "Popup: site status when light mode is applied"
+  },
+  "siteExcluded": {
+    "message": "Este sitio está excluido",
+    "description": "Popup: site status when the site is excluded"
+  },
+  "feedback": {
+    "message": "Enviar comentarios",
+    "description": "Popup: feedback section toggle"
+  },
+  "feedbackPlaceholder": {
+    "message": "Describe el problema…",
+    "description": "Popup: feedback textarea placeholder"
+  },
+  "feedbackSend": {
+    "message": "Enviar",
+    "description": "Popup: feedback send button"
   }
 }

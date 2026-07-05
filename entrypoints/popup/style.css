@@ -1,0 +1,285 @@
+/* 主题：阳光与纸。暖白纸面、琥珀太阳、暖调中性色——不用纯黑纯白。 */
+:root {
+  --paper: oklch(0.988 0.008 90);
+  --ink: oklch(0.28 0.02 60);
+  --ink-soft: oklch(0.55 0.02 70);
+  --ink-faint: oklch(0.72 0.015 75);
+  --sun: oklch(0.78 0.15 75);
+  --sun-deep: oklch(0.72 0.16 65);
+  --line: oklch(0.93 0.012 85);
+  --track-off: oklch(0.88 0.012 85);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 292px;
+  background: var(--paper);
+  color: var(--ink);
+  font: 13px/1.45 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+.panel {
+  padding: 6px 16px 12px;
+}
+
+/* ---- 全局开关：主角 ---- */
+
+.master {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  cursor: pointer;
+}
+
+.sun {
+  color: var(--sun-deep);
+  display: grid;
+  place-items: center;
+  transition: color 0.35s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.master-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.master-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.master-app {
+  font-size: 11px;
+  color: var(--ink-faint);
+  letter-spacing: 0.02em;
+}
+
+/* ---- 站点行 ---- */
+
+.site {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0 13px;
+  border-top: 1px solid var(--line);
+  cursor: pointer;
+  transition: opacity 0.25s var(--ease-out);
+}
+
+.site-text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.site-host {
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.site-label {
+  font-size: 11px;
+  color: var(--ink-soft);
+  transition: color 0.25s var(--ease-out);
+}
+
+/* 生效中：状态文案点亮为琥珀色，与开关呼应 */
+.site-label.applied {
+  color: var(--sun-deep);
+  font-weight: 500;
+}
+
+/* 扩展关闭或页面不支持时，站点行退场 */
+.panel.off .site,
+.site.unavailable {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.panel.off .sun {
+  color: var(--ink-faint);
+  transform: rotate(-25deg);
+}
+
+/* ---- 开关 ---- */
+
+.switch {
+  appearance: none;
+  flex: none;
+  width: 36px;
+  height: 21px;
+  border-radius: 21px;
+  background: var(--track-off);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.25s var(--ease-out);
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 2.5px;
+  left: 2.5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: oklch(0.995 0.004 90);
+  box-shadow: 0 1px 2px oklch(0.3 0.02 60 / 0.25);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.switch:checked {
+  background: var(--sun);
+}
+
+.switch:checked::after {
+  transform: translateX(15px);
+}
+
+.switch-lg {
+  width: 44px;
+  height: 25px;
+  border-radius: 25px;
+}
+
+.switch-lg::after {
+  width: 20px;
+  height: 20px;
+}
+
+.switch-lg:checked::after {
+  transform: translateX(19px);
+}
+
+.switch:focus-visible {
+  outline: 2px solid var(--sun-deep);
+  outline-offset: 2px;
+}
+
+/* ---- 底部提示 ---- */
+
+.hint {
+  font-size: 11px;
+  color: var(--ink-faint);
+  text-align: center;
+  padding-top: 2px;
+}
+
+/* ---- 邮件反馈 ---- */
+
+.feedback {
+  border-top: 1px solid var(--line);
+  margin-top: 10px;
+  padding-top: 4px;
+}
+
+.feedback-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: none;
+  padding: 6px 0;
+  font: inherit;
+  font-size: 12px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: color 0.2s var(--ease-out);
+}
+
+.feedback-toggle:hover {
+  color: var(--ink);
+}
+
+/* grid-template-rows 展开动画（不动画 height） */
+.feedback-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s var(--ease-out);
+}
+
+.feedback.open .feedback-body {
+  grid-template-rows: 1fr;
+}
+
+.feedback-inner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* overflow: hidden 会裁掉子元素向外扩出的 focus outline，四周留出余量 */
+  padding: 0 4px 4px;
+}
+
+#feedback-text {
+  margin-top: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: oklch(0.995 0.004 90);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  resize: none;
+}
+
+#feedback-text::placeholder {
+  color: var(--ink-faint);
+}
+
+#feedback-text:focus-visible {
+  outline: 2px solid var(--sun);
+  outline-offset: -1px;
+}
+
+.feedback-send {
+  align-self: flex-end;
+  border: 0;
+  border-radius: 14px;
+  padding: 5px 16px;
+  background: var(--sun-deep);
+  color: oklch(0.99 0.008 90);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+
+.feedback-send:hover {
+  background: oklch(0.66 0.16 60);
+}
+
+.feedback-send:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.feedback-send:focus-visible {
+  outline: 2px solid var(--sun-deep);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

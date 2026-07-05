@@ -7,12 +7,36 @@
     "message": "保持网站始终使用浅色模式，无论您的系统暗黑模式设置如何。",
     "description": "The description of the extension"
   },
-  "disableOnSite": {
-    "message": "在此网站禁用",
-    "description": "Context menu: disable light mode on the current site"
+  "forceLight": {
+    "message": "强制浅色模式",
+    "description": "Popup: master toggle label"
   },
-  "enableOnSite": {
-    "message": "在此网站启用",
-    "description": "Context menu: re-enable light mode on the current site"
+  "unsupportedPage": {
+    "message": "此页面不可用",
+    "description": "Popup: shown when the current page cannot be controlled"
+  },
+  "reloadHint": {
+    "message": "更改后自动刷新页面",
+    "description": "Popup: hint that toggling reloads the page"
+  },
+  "siteApplied": {
+    "message": "已应用浅色模式",
+    "description": "Popup: site status when light mode is applied"
+  },
+  "siteExcluded": {
+    "message": "此网站已排除",
+    "description": "Popup: site status when the site is excluded"
+  },
+  "feedback": {
+    "message": "邮件反馈",
+    "description": "Popup: feedback section toggle"
+  },
+  "feedbackPlaceholder": {
+    "message": "描述你遇到的问题…",
+    "description": "Popup: feedback textarea placeholder"
+  },
+  "feedbackSend": {
+    "message": "发送",
+    "description": "Popup: feedback send button"
   }
 }

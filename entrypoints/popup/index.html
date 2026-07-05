@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Always Light Mode</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="panel" id="panel">
+      <!-- 全局开关：面板主角 -->
+      <label class="master" for="global-toggle">
+        <span class="sun" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22">
+            <circle cx="12" cy="12" r="4.6" fill="currentColor" />
+            <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+              <line x1="12" y1="1.5" x2="12" y2="4.4" />
+              <line x1="12" y1="19.6" x2="12" y2="22.5" />
+              <line x1="1.5" y1="12" x2="4.4" y2="12" />
+              <line x1="19.6" y1="12" x2="22.5" y2="12" />
+              <line x1="4.6" y1="4.6" x2="6.6" y2="6.6" />
+              <line x1="17.4" y1="17.4" x2="19.4" y2="19.4" />
+              <line x1="4.6" y1="19.4" x2="6.6" y2="17.4" />
+              <line x1="17.4" y1="6.6" x2="19.4" y2="4.6" />
+            </g>
+          </svg>
+        </span>
+        <span class="master-text">
+          <span class="master-title" id="label-global">Force light mode</span>
+          <span class="master-app" id="label-app">Always Light Mode</span>
+        </span>
+        <input type="checkbox" id="global-toggle" class="switch switch-lg" />
+      </label>
+
+      <!-- 当前站点 -->
+      <label class="site" for="site-toggle" id="site-row">
+        <span class="site-text">
+          <span class="site-host" id="site-host">–</span>
+          <span class="site-label" id="label-site">Light mode applied</span>
+        </span>
+        <input type="checkbox" id="site-toggle" class="switch" />
+      </label>
+
+      <p class="hint" id="label-hint">Changes reload the page</p>
+
+      <!-- 邮件反馈：默认收起，点开展开输入区 -->
+      <section class="feedback">
+        <button type="button" class="feedback-toggle" id="feedback-toggle">
+          <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+            <rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8" />
+            <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span id="label-feedback">Email feedback</span>
+        </button>
+        <div class="feedback-body" id="feedback-body">
+          <div class="feedback-inner">
+            <textarea id="feedback-text" rows="3" placeholder="Describe the problem…"></textarea>
+            <button type="button" class="feedback-send" id="feedback-send" disabled>Send</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

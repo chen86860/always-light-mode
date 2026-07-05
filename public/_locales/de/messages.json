@@ -7,12 +7,36 @@
     "message": "Behält Websites im hellen Modus, unabhängig von den Dunkelmodus-Einstellungen Ihres Systems.",
     "description": "The description of the extension"
   },
-  "disableOnSite": {
-    "message": "Auf dieser Website deaktivieren",
-    "description": "Context menu: disable light mode on the current site"
+  "forceLight": {
+    "message": "Hellmodus erzwingen",
+    "description": "Popup: master toggle label"
   },
-  "enableOnSite": {
-    "message": "Auf dieser Website aktivieren",
-    "description": "Context menu: re-enable light mode on the current site"
+  "unsupportedPage": {
+    "message": "Auf dieser Seite nicht verfügbar",
+    "description": "Popup: shown when the current page cannot be controlled"
+  },
+  "reloadHint": {
+    "message": "Änderungen laden die Seite neu",
+    "description": "Popup: hint that toggling reloads the page"
+  },
+  "siteApplied": {
+    "message": "Hellmodus angewendet",
+    "description": "Popup: site status when light mode is applied"
+  },
+  "siteExcluded": {
+    "message": "Diese Website ist ausgeschlossen",
+    "description": "Popup: site status when the site is excluded"
+  },
+  "feedback": {
+    "message": "Feedback per E-Mail",
+    "description": "Popup: feedback section toggle"
+  },
+  "feedbackPlaceholder": {
+    "message": "Beschreiben Sie das Problem…",
+    "description": "Popup: feedback textarea placeholder"
+  },
+  "feedbackSend": {
+    "message": "Senden",
+    "description": "Popup: feedback send button"
   }
 }

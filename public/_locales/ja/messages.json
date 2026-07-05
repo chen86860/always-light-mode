@@ -7,12 +7,36 @@
     "message": "システムのダークモード設定に関係なく、ウェブサイトをライトモードに保ちます。",
     "description": "The description of the extension"
   },
-  "disableOnSite": {
-    "message": "このサイトで無効にする",
-    "description": "Context menu: disable light mode on the current site"
+  "forceLight": {
+    "message": "ライトモードを強制",
+    "description": "Popup: master toggle label"
   },
-  "enableOnSite": {
-    "message": "このサイトで有効にする",
-    "description": "Context menu: re-enable light mode on the current site"
+  "unsupportedPage": {
+    "message": "このページでは利用できません",
+    "description": "Popup: shown when the current page cannot be controlled"
+  },
+  "reloadHint": {
+    "message": "変更するとページが再読み込みされます",
+    "description": "Popup: hint that toggling reloads the page"
+  },
+  "siteApplied": {
+    "message": "ライトモード適用中",
+    "description": "Popup: site status when light mode is applied"
+  },
+  "siteExcluded": {
+    "message": "このサイトは除外されています",
+    "description": "Popup: site status when the site is excluded"
+  },
+  "feedback": {
+    "message": "メールでフィードバック",
+    "description": "Popup: feedback section toggle"
+  },
+  "feedbackPlaceholder": {
+    "message": "問題を説明してください…",
+    "description": "Popup: feedback textarea placeholder"
+  },
+  "feedbackSend": {
+    "message": "送信",
+    "description": "Popup: feedback send button"
   }
 }

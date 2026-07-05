@@ -18,7 +18,7 @@ Major rework of how light mode is enforced, greatly expanding site compatibility
 
 ### Added
 
-- **Per-site disable**: right-click the toolbar icon → "Disable on this site". Stored in sync storage, applied via `excludeMatches` (localized in all 10 languages).
+- **Popup control panel**: clicking the toolbar icon now opens a small panel with a master switch and a per-site switch, replacing the old click-to-toggle behavior. Per-site exclusions are stored in sync storage and applied via `excludeMatches`. Localized in all 10 languages.
 - **Broader theme detection**: 7 common dark class names, and theme attributes `data-theme`, `data-color-mode` (GitHub), `data-bs-theme` (Bootstrap 5.3+), `data-color-scheme`, `data-mode`, `data-scheme`, `data-dark-mode`, `theme`, `color-scheme`, plus inline `style="color-scheme: dark"`. Dark values are rewritten to `light`.
 - **Shadow DOM support**: open shadow roots are processed via an `attachShadow` hook plus fallback DOM sweeps.
 - **Constructed stylesheets support**: `CSSStyleSheet.replace/replaceSync/insertRule` are intercepted so CSS-in-JS dark rules never apply; `adoptedStyleSheets` are also cleaned.
@@ -31,7 +31,7 @@ Major rework of how light mode is enforced, greatly expanding site compatibility
 
 ### Permissions
 
-- Added `scripting`, `contextMenus` and `host_permissions: <all_urls>` (required for dynamic registration); removed `web_accessible_resources`.
+- Added `scripting` and `host_permissions: <all_urls>` (required for dynamic registration); removed `web_accessible_resources`.
 
 ### Known limitations
 

@@ -7,12 +7,36 @@
     "message": "Mantiene i siti web in modalità chiara, indipendentemente dalle impostazioni della modalità scura del sistema.",
     "description": "The description of the extension"
   },
-  "disableOnSite": {
-    "message": "Disattiva su questo sito",
-    "description": "Context menu: disable light mode on the current site"
+  "forceLight": {
+    "message": "Forza modalità chiara",
+    "description": "Popup: master toggle label"
   },
-  "enableOnSite": {
-    "message": "Attiva su questo sito",
-    "description": "Context menu: re-enable light mode on the current site"
+  "unsupportedPage": {
+    "message": "Non disponibile su questa pagina",
+    "description": "Popup: shown when the current page cannot be controlled"
+  },
+  "reloadHint": {
+    "message": "Le modifiche ricaricano la pagina",
+    "description": "Popup: hint that toggling reloads the page"
+  },
+  "siteApplied": {
+    "message": "Modalità chiara applicata",
+    "description": "Popup: site status when light mode is applied"
+  },
+  "siteExcluded": {
+    "message": "Questo sito è escluso",
+    "description": "Popup: site status when the site is excluded"
+  },
+  "feedback": {
+    "message": "Feedback via e-mail",
+    "description": "Popup: feedback section toggle"
+  },
+  "feedbackPlaceholder": {
+    "message": "Descrivi il problema…",
+    "description": "Popup: feedback textarea placeholder"
+  },
+  "feedbackSend": {
+    "message": "Invia",
+    "description": "Popup: feedback send button"
   }
 }
