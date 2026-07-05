@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "appDescription": {
-    "message": "Maintient les sites web en mode clair, indépendamment des paramètres du mode sombre de votre système.",
+    "message": "Force le mode clair sur tous les sites, malgré les thèmes sombres et les réglages système. Excluez un site en un clic.",
     "description": "The description of the extension"
   },
   "forceLight": {

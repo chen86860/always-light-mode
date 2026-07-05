@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "appDescription": {
-    "message": "Mantiene i siti web in modalità chiara, indipendentemente dalle impostazioni della modalità scura del sistema.",
+    "message": "Forza la modalità chiara su ogni sito, ignorando temi scuri e impostazioni di sistema. Escludi qualsiasi sito con un clic.",
     "description": "The description of the extension"
   },
   "forceLight": {

@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "appDescription": {
-    "message": "システムのダークモード設定に関係なく、ウェブサイトをライトモードに保ちます。",
+    "message": "すべてのウェブサイトをライトモードに強制。ダークテーマやシステム設定を上書きします。ワンクリックでサイトを除外可能。",
     "description": "The description of the extension"
   },
   "forceLight": {

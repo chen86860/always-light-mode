@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "appDescription": {
-    "message": "保持网站始终使用浅色模式，无论您的系统暗黑模式设置如何。",
+    "message": "强制所有网站使用浅色模式，无视网站深色主题与系统深色模式设置。支持一键排除任意网站。",
     "description": "The description of the extension"
   },
   "forceLight": {

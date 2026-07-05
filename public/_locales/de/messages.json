@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "appDescription": {
-    "message": "Behält Websites im hellen Modus, unabhängig von den Dunkelmodus-Einstellungen Ihres Systems.",
+    "message": "Erzwingt den Hellmodus auf jeder Website – trotz Dark Themes und Systemeinstellungen. Websites per Klick ausschließen.",
     "description": "The description of the extension"
   },
   "forceLight": {

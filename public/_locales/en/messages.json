@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "appDescription": {
-    "message": "Keep websites in light mode, regardless of your system dark mode settings.",
+    "message": "Force every website into light mode — overriding dark themes and system dark mode. Exclude any site with one click.",
     "description": "The description of the extension"
   },
   "forceLight": {

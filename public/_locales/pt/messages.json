@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "appDescription": {
-    "message": "Mantém os sites em modo claro, independentemente das configurações do modo escuro do seu sistema.",
+    "message": "Força o modo claro em todos os sites, ignorando temas escuros e configurações do sistema. Exclua qualquer site com um clique.",
     "description": "The description of the extension"
   },
   "forceLight": {

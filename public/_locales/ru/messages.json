@@ -4,7 +4,7 @@
     "description": "The name of the extension"
   },
   "appDescription": {
-    "message": "Поддерживает веб-сайты в светлом режиме, независимо от настроек темного режима вашей системы.",
+    "message": "Принудительный светлый режим на всех сайтах — независимо от тёмных тем и настроек системы. Исключайте сайты одним кликом.",
     "description": "The description of the extension"
   },
   "forceLight": {
