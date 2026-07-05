@@ -6,5 +6,13 @@
   "appDescription": {
     "message": "保持网站始终使用浅色模式，无论您的系统暗黑模式设置如何。",
     "description": "The description of the extension"
+  },
+  "disableOnSite": {
+    "message": "在此网站禁用",
+    "description": "Context menu: disable light mode on the current site"
+  },
+  "enableOnSite": {
+    "message": "在此网站启用",
+    "description": "Context menu: re-enable light mode on the current site"
   }
 }

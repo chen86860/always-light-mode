@@ -6,5 +6,13 @@
   "appDescription": {
     "message": "Maintient les sites web en mode clair, indépendamment des paramètres du mode sombre de votre système.",
     "description": "The description of the extension"
+  },
+  "disableOnSite": {
+    "message": "Désactiver sur ce site",
+    "description": "Context menu: disable light mode on the current site"
+  },
+  "enableOnSite": {
+    "message": "Activer sur ce site",
+    "description": "Context menu: re-enable light mode on the current site"
   }
 }

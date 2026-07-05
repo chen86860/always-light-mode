@@ -6,17 +6,12 @@ export default defineConfig({
     name: '__MSG_appName__',
     description: '__MSG_appDescription__',
     default_locale: 'en',
-    permissions: ['storage', 'activeTab'],
+    permissions: ['storage', 'activeTab', 'scripting', 'contextMenus'],
+    host_permissions: ['<all_urls>'],
     action: {
       default_icon: {
         128: 'icon/128.png',
       },
     },
-    web_accessible_resources: [
-      {
-        resources: ['inject.js'],
-        matches: ['<all_urls>'],
-      },
-    ],
   },
 });

@@ -6,5 +6,13 @@
   "appDescription": {
     "message": "Behält Websites im hellen Modus, unabhängig von den Dunkelmodus-Einstellungen Ihres Systems.",
     "description": "The description of the extension"
+  },
+  "disableOnSite": {
+    "message": "Auf dieser Website deaktivieren",
+    "description": "Context menu: disable light mode on the current site"
+  },
+  "enableOnSite": {
+    "message": "Auf dieser Website aktivieren",
+    "description": "Context menu: re-enable light mode on the current site"
   }
 }

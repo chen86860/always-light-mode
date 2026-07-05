@@ -1,58 +1,30 @@
 import { addLightModeStyle } from './utils/styles/light-mode';
-import { setupHeadObserver } from './utils/observers/head-observer';
-import { setupClassObserver } from './utils/observers/class-observer';
-import { lightModeEnabledStorage } from './utils/storage';
+import { removeDarkModeMediaQueries } from './utils/styles/dark-mode';
+import { setupStyleObserver } from './utils/observers/style-observer';
+import { setupThemeObserver } from './utils/observers/theme-observer';
+import { setupShadowObserver } from './utils/observers/shadow-observer';
 
+/**
+ * ISOLATED world 内容脚本，由 background 通过 scripting.registerContentScripts
+ * 动态注册——是否启用、哪些站点排除都由注册状态决定，脚本本身无需再查询 storage。
+ */
 export default defineContentScript({
   matches: ['<all_urls>'],
-  runAt: 'document_start',
-  main: async () => {
-    const isEnabled = await lightModeEnabledStorage.getValue();
-
-    if (!isEnabled) return;
-
-    // 监听 document.head 的创建和变化
-    const setupDocumentObserver = () => {
-      const documentObserver = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.type === 'childList') {
-            mutation.addedNodes.forEach((node) => {
-              if (node instanceof HTMLHeadElement || document.head) {
-                setupHeadObserver();
-                documentObserver.disconnect();
-              }
-            });
-          }
-        });
-      });
-
-      documentObserver.observe(document.documentElement, {
-        childList: true,
-      });
-
-      return documentObserver;
-    };
-
-    // 如果 head 已经存在，直接设置监听
-    if (document.head) {
-      setupHeadObserver();
-    } else {
-      setupDocumentObserver();
-    }
-
-    // 设置 class 观察者
-    setupClassObserver();
-
-    // 添加 light mode 样式
+  registration: 'runtime',
+  main() {
+    // 强制 color-scheme: light（head 未就绪时挂在 documentElement 上）
     addLightModeStyle();
 
-    // inject.js
-    const script = document.createElement('script');
-    script.src = browser.runtime.getURL('/inject.js'); // 外部脚本
-    script.onload = function () {
-      (this as HTMLScriptElement).remove();
-    };
+    // 移除 html/body 上的暗色 class / data-theme 等属性，并持续监听
+    setupThemeObserver();
 
-    (document.head || document.documentElement).appendChild(script);
+    // 处理现有及后续注入的 <link>/<style>/<meta name="color-scheme">
+    setupStyleObserver();
+
+    // 处理 open shadow root 内的样式表
+    setupShadowObserver();
+
+    // 页面加载完成后全量兜底清扫一次（覆盖 adoptedStyleSheets 的后期赋值等观察不到的路径）
+    window.addEventListener('load', () => removeDarkModeMediaQueries());
   },
 });

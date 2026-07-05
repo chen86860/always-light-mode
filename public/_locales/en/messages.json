@@ -6,5 +6,13 @@
   "appDescription": {
     "message": "Keep websites in light mode, regardless of your system dark mode settings.",
     "description": "The description of the extension"
+  },
+  "disableOnSite": {
+    "message": "Disable on this site",
+    "description": "Context menu: disable light mode on the current site"
+  },
+  "enableOnSite": {
+    "message": "Enable on this site",
+    "description": "Context menu: re-enable light mode on the current site"
   }
 }

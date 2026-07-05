@@ -6,5 +6,13 @@
   "appDescription": {
     "message": "시스템의 다크 모드 설정과 상관없이 웹사이트를 라이트 모드로 유지합니다.",
     "description": "The description of the extension"
+  },
+  "disableOnSite": {
+    "message": "이 사이트에서 비활성화",
+    "description": "Context menu: disable light mode on the current site"
+  },
+  "enableOnSite": {
+    "message": "이 사이트에서 활성화",
+    "description": "Context menu: re-enable light mode on the current site"
   }
 }
