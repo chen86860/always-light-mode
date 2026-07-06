@@ -21,14 +21,26 @@
 | `CHROME_SERVICE_ACCOUNT_CLIENT_EMAIL` | 服务账号 JSON 里的 `client_email` |
 | `CHROME_SERVICE_ACCOUNT_PRIVATE_KEY` | 服务账号 JSON 里的 `private_key`（含换行的完整 PEM） |
 
+从 JSON 密钥文件提取后两个值（⚠️ `private_key` 字段里的 `\n` 是 JSON 转义，
+必须还原成真实换行——工具直接把值传给 Node crypto，不做 unescape；用 `jq -r` 自动处理）：
+
+```sh
+jq -r .client_email 密钥.json | gh secret set CHROME_SERVICE_ACCOUNT_CLIENT_EMAIL
+jq -r .private_key  密钥.json | gh secret set CHROME_SERVICE_ACCOUNT_PRIVATE_KEY
+```
+
+本地放 `.env.submit`（CLI 只自动读取这个文件名，不读 `.env`；已被 git 忽略），多行 PEM 用双引号包裹即可。
+
 相比 OAuth refresh token 方案：不需要同意屏幕、不会过期、没有 OOB/invalid_request 那些坑。
 
 ## 本地发布
 
 ```sh
-# 四个变量写入 .env（已被 git 忽略）或直接导出；CLI 默认走旧版 v1.1，须显式指定 v2
+# 变量写入项目根目录的 .env.submit（CLI 自动读取；已被 git 忽略），记得也写入 CHROME_API_VERSION=v2
+# 先清掉历史 zip：通配符会把旧版本包一起匹配进来，CLI 取第一个（字母序最小＝最旧）
+rm -f .output/*.zip
 pnpm zip
-CHROME_API_VERSION=v2 pnpm exec publish-extension --chrome-zip .output/*-chrome.zip
+pnpm exec publish-extension --chrome-zip .output/*-chrome.zip
 ```
 
 先验证不实际提交：加 `--dry-run`。只上传不提审：设 `CHROME_SKIP_SUBMIT_REVIEW=true`。
