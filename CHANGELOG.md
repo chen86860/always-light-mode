@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.3.0 (2026-07-05)
+
+### Changed
+
+- **Toggling no longer reloads the page.** Dark CSS rules are now neutralized by rewriting
+  their media conditions (reversibly) instead of deleting them, and theme markers record
+  their original values — so both switches apply and revert instantly on already-open pages.
+  The page is only reloaded in the rare case where the content script isn't present yet
+  (e.g. re-enabling a previously excluded site). The "Changes reload the page" hint is gone.
+- Light-scheme media queries (`prefers-color-scheme: light`) are now forced active, so sites
+  that style their light theme behind a light media query render correctly under system dark mode.
+
+### Added
+
+- **E2E test suite** (`pnpm test:e2e`, Playwright): forced-light coverage on a hostile dark
+  page, live-toggle round-trips without navigation, popup state machine and feedback mailto.
+- **CI** (GitHub Actions): typecheck, Chrome + Firefox builds and E2E on every push/PR.
+- **Automated store submission**: pushing a `v*` tag builds, zips and submits to the
+  Chrome Web Store via `wxt submit` (see `docs/publishing.md`).
+- **Store assets generator** (`pnpm store:assets`): reproducible 1280×800 screenshots and
+  440×280 promo tile in `assets/store/`.
+
+### Known limitations
+
+- Constructed stylesheets created while light mode was active keep their rewritten (light)
+  conditions after a live toggle-off; a reload fully restores them.
+- Sites that themed themselves via `matchMedia` JavaScript at load keep their light theme
+  after a live toggle-off until reloaded (CSS-based theming reverts instantly).
+
 ## 1.2.0 (2026-07-05)
 
 Major rework of how light mode is enforced, greatly expanding site compatibility.

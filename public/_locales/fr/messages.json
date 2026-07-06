@@ -15,10 +15,6 @@
     "message": "Indisponible sur cette page",
     "description": "Popup: shown when the current page cannot be controlled"
   },
-  "reloadHint": {
-    "message": "Les modifications rechargent la page",
-    "description": "Popup: hint that toggling reloads the page"
-  },
   "siteApplied": {
     "message": "Mode clair appliqué",
     "description": "Popup: site status when light mode is applied"

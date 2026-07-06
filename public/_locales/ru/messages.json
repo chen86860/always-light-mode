@@ -15,10 +15,6 @@
     "message": "Недоступно на этой странице",
     "description": "Popup: shown when the current page cannot be controlled"
   },
-  "reloadHint": {
-    "message": "Изменения перезагружают страницу",
-    "description": "Popup: hint that toggling reloads the page"
-  },
   "siteApplied": {
     "message": "Светлый режим применён",
     "description": "Popup: site status when light mode is applied"

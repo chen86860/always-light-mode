@@ -14,7 +14,6 @@ const t = (key: string) => browser.i18n.getMessage(key as Parameters<typeof brow
 const applyTexts = () => {
   $('label-app').textContent = t('appName');
   $('label-global').textContent = t('forceLight');
-  $('label-hint').textContent = t('reloadHint');
   $('label-feedback').textContent = t('feedback');
   $<HTMLTextAreaElement>('feedback-text').placeholder = t('feedbackPlaceholder');
   $('feedback-send').textContent = t('feedbackSend');
@@ -53,8 +52,26 @@ const getActiveTab = async () => {
   return tab;
 };
 
-const reloadTab = async (tabId?: number) => {
-  if (tabId) await browser.tabs.reload(tabId);
+/** 探测当前页是否已注入内容脚本（已注入则 storage watch 会无刷新生效） */
+const hasContentScript = async (tabId?: number) => {
+  if (!tabId) return false;
+  try {
+    const pong = await Promise.race([
+      browser.tabs.sendMessage(tabId, 'alm-ping'),
+      new Promise((resolve) => setTimeout(() => resolve(null), 300)),
+    ]);
+    return pong === 'alm-pong';
+  } catch {
+    return false;
+  }
+};
+
+/** 只有"需要生效但脚本不在页面里"时才刷新（例如加载时被排除、现在重新启用） */
+const reloadIfNeeded = async (tabId: number | undefined, shouldBeOn: boolean) => {
+  if (!tabId || !shouldBeOn) return;
+  if (!(await hasContentScript(tabId))) {
+    await browser.tabs.reload(tabId);
+  }
 };
 
 const main = async () => {
@@ -96,7 +113,7 @@ const main = async () => {
     await lightModeEnabledStorage.setValue(globalToggle.checked);
     await syncContentScripts();
     await updateIcon();
-    await reloadTab(tab?.id);
+    await reloadIfNeeded(tab?.id, globalToggle.checked && !excluded);
   });
 
   siteToggle.addEventListener('change', async () => {
@@ -109,7 +126,7 @@ const main = async () => {
       : sites.filter((site: string) => site !== host);
     await disabledSitesStorage.setValue(next);
     await syncContentScripts();
-    await reloadTab(tab?.id);
+    await reloadIfNeeded(tab?.id, globalToggle.checked && !excluded);
   });
 };
 

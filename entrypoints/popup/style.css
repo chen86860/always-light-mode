@@ -174,15 +174,6 @@ body {
   outline-offset: 2px;
 }
 
-/* ---- 底部提示 ---- */
-
-.hint {
-  font-size: 11px;
-  color: var(--ink-faint);
-  text-align: center;
-  padding-top: 2px;
-}
-
 /* ---- 邮件反馈 ---- */
 
 .feedback {

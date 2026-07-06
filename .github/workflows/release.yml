@@ -1,0 +1,43 @@
+name: Release
+
+# 推送 v* 标签（如 v1.3.0）即构建并提交 Chrome Web Store 审核。
+# 所需 secrets 的获取方式见 docs/publishing.md。
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build & zip
+        run: pnpm zip
+
+      # publish-browser-extension v5 直连 Chrome Web Store API v2（service account 授权）。
+      # 不走 `wxt submit`：wxt 锁定的旧版本还在用 2026-10-15 停服的 v1 API。
+      - name: Submit to Chrome Web Store
+        run: pnpm exec publish-extension --chrome-zip .output/*-chrome.zip
+        env:
+          CHROME_API_VERSION: v2
+          CHROME_EXTENSION_ID: ${{ secrets.CHROME_EXTENSION_ID }}
+          CHROME_PUBLISHER_ID: ${{ secrets.CHROME_PUBLISHER_ID }}
+          CHROME_SERVICE_ACCOUNT_CLIENT_EMAIL: ${{ secrets.CHROME_SERVICE_ACCOUNT_CLIENT_EMAIL }}
+          CHROME_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.CHROME_SERVICE_ACCOUNT_PRIVATE_KEY }}
+
+      - name: Attach zip to GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: .output/*-chrome.zip

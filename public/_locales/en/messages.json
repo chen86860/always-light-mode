@@ -15,10 +15,6 @@
     "message": "Unavailable on this page",
     "description": "Popup: shown when the current page cannot be controlled"
   },
-  "reloadHint": {
-    "message": "Changes reload the page",
-    "description": "Popup: hint that toggling reloads the page"
-  },
   "siteApplied": {
     "message": "Light mode applied",
     "description": "Popup: site status when light mode is applied"

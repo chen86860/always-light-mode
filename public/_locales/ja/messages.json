@@ -15,10 +15,6 @@
     "message": "このページでは利用できません",
     "description": "Popup: shown when the current page cannot be controlled"
   },
-  "reloadHint": {
-    "message": "変更するとページが再読み込みされます",
-    "description": "Popup: hint that toggling reloads the page"
-  },
   "siteApplied": {
     "message": "ライトモード適用中",
     "description": "Popup: site status when light mode is applied"

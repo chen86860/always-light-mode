@@ -1,34 +1,45 @@
-import { DARK_CONDITION, removeDarkRules } from '../styles/dark-mode';
+import { DARK_CONDITION, LIGHT_CONDITION, neutralizeDarkRules } from '../styles/dark-mode';
 import { forceLightMetaColorScheme } from '../styles/light-mode';
 
-const LIGHT_CONDITION = /prefers-color-scheme\s*:\s*light/i;
+interface MediaAttrEdit {
+  element: HTMLLinkElement | HTMLStyleElement;
+  original: string;
+  rewritten: string;
+}
+
+const mediaAttrEdits: MediaAttrEdit[] = [];
+
+const rewriteMediaAttr = (element: HTMLLinkElement | HTMLStyleElement, rewritten: string) => {
+  mediaAttrEdits.push({ element, original: element.media, rewritten });
+  element.media = rewritten;
+};
 
 /** 只处理单个样式节点，避免每次变更都全量重扫 document.styleSheets */
 const processStyleNode = (node: Node) => {
   if (node instanceof HTMLLinkElement && node.rel.includes('stylesheet')) {
     // media 属性级别的暗色条件：整张表禁用 / 亮色条件：无条件启用
     if (DARK_CONDITION.test(node.media)) {
-      node.media = 'not all';
+      rewriteMediaAttr(node, 'not all');
       return;
     }
     if (LIGHT_CONDITION.test(node.media)) {
-      node.media = 'all';
+      rewriteMediaAttr(node, 'all');
     }
 
     if (node.sheet) {
-      removeDarkRules(node.sheet);
+      neutralizeDarkRules(node.sheet);
     } else {
       node.addEventListener('load', () => {
-        if (node.sheet) removeDarkRules(node.sheet);
+        if (node.sheet) neutralizeDarkRules(node.sheet);
       });
     }
   } else if (node instanceof HTMLStyleElement) {
     if (DARK_CONDITION.test(node.media)) {
-      node.media = 'not all';
+      rewriteMediaAttr(node, 'not all');
       return;
     }
     if (node.sheet) {
-      removeDarkRules(node.sheet);
+      neutralizeDarkRules(node.sheet);
     }
   } else if (node instanceof HTMLMetaElement) {
     forceLightMetaColorScheme(node);
@@ -41,11 +52,13 @@ const processExistingStyles = () => {
     .forEach(processStyleNode);
 };
 
+let styleObserver: MutationObserver | null = null;
+
 export const setupStyleObserver = () => {
   processExistingStyles();
 
   // 监听整个文档（head 和 body 都可能被注入样式）
-  const styleObserver = new MutationObserver((mutations) => {
+  styleObserver = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
       if (mutation.type === 'childList') {
         mutation.addedNodes.forEach((node) => {
@@ -72,6 +85,17 @@ export const setupStyleObserver = () => {
     subtree: true,
     characterData: true,
   });
+};
 
-  return styleObserver;
+/** 断开监听并还原被改写的 media 属性 */
+export const teardownStyleObserver = () => {
+  styleObserver?.disconnect();
+  styleObserver = null;
+
+  for (const { element, original, rewritten } of mediaAttrEdits) {
+    if (element.media === rewritten) {
+      element.media = original;
+    }
+  }
+  mediaAttrEdits.length = 0;
 };

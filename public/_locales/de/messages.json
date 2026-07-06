@@ -15,10 +15,6 @@
     "message": "Auf dieser Seite nicht verfügbar",
     "description": "Popup: shown when the current page cannot be controlled"
   },
-  "reloadHint": {
-    "message": "Änderungen laden die Seite neu",
-    "description": "Popup: hint that toggling reloads the page"
-  },
   "siteApplied": {
     "message": "Hellmodus angewendet",
     "description": "Popup: site status when light mode is applied"

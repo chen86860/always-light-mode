@@ -3,11 +3,17 @@ import { SHADOW_ATTACHED_EVENT } from './utils/observers/shadow-observer';
 /**
  * 运行在页面 MAIN world 的补丁，由 background 通过 scripting.registerContentScripts
  * 以 world: 'MAIN' + document_start 注册，同步执行于页面脚本之前。
+ * 补丁常驻，但可通过 ISOLATED world 派发的事件运行时启停（见 content.ts）。
  */
 export default defineContentScript({
   matches: ['<all_urls>'],
   registration: 'runtime',
   main() {
+    // 注入即启用；content.ts 的 enable/disable 事件负责运行时切换
+    let enabled = true;
+    document.addEventListener('__almEnable', () => (enabled = true));
+    document.addEventListener('__almDisable', () => (enabled = false));
+
     // 媒体查询条件改写：dark → 恒假，light → 恒真
     const DARK_QUERY = /\(\s*prefers-color-scheme\s*:\s*dark\s*\)/gi;
     const LIGHT_QUERY = /\(\s*prefers-color-scheme\s*:\s*light\s*\)/gi;
@@ -23,7 +29,7 @@ export default defineContentScript({
     const nativeMatchMedia = window.matchMedia.bind(window);
     window.matchMedia = function matchMedia(query: string): MediaQueryList {
       const q = String(query);
-      if (/prefers-color-scheme/i.test(q)) {
+      if (enabled && /prefers-color-scheme/i.test(q)) {
         const rewritten = q.replace(DARK_QUERY, ALWAYS_FALSE).replace(LIGHT_QUERY, ALWAYS_TRUE);
         const mql = nativeMatchMedia(rewritten);
         // 对页面隐藏改写痕迹，media 仍返回原始 query
@@ -39,7 +45,7 @@ export default defineContentScript({
 
     // --- constructed stylesheets：CSS-in-JS 框架经由这些 API 写入暗色规则 ---
     const rewriteCssText = (text: unknown) =>
-      typeof text === 'string'
+      enabled && typeof text === 'string'
         ? text
             .replace(DARK_CONDITION, 'min-width: 999999px')
             .replace(LIGHT_CONDITION, 'min-width: 0px')

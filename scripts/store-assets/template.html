@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<style>
+  :root {
+    --paper: oklch(0.988 0.008 90);
+    --paper-deep: oklch(0.965 0.012 88);
+    --ink: oklch(0.28 0.02 60);
+    --ink-soft: oklch(0.55 0.02 70);
+    --ink-faint: oklch(0.72 0.015 75);
+    --sun: oklch(0.78 0.15 75);
+    --sun-deep: oklch(0.72 0.16 65);
+    --line: oklch(0.93 0.012 85);
+    --night: oklch(0.22 0.02 265);
+    --night-soft: oklch(0.32 0.02 265);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font: 15px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    background: #888;
+  }
+  .board { position: relative; overflow: hidden; background: var(--paper); margin: 20px auto; }
+  .shot { width: 1280px; height: 800px; }
+  .promo { width: 440px; height: 280px; }
+
+  /* ---------- 公共：太阳标 ---------- */
+  .sunmark { color: var(--sun-deep); }
+
+  /* ---------- 公共：popup 面板复刻 ---------- */
+  .panel {
+    width: 292px;
+    background: var(--paper);
+    border-radius: 14px;
+    box-shadow: 0 18px 50px oklch(0.3 0.04 60 / 0.22), 0 2px 8px oklch(0.3 0.04 60 / 0.12);
+    padding: 6px 16px 12px;
+  }
+  .row { display: flex; align-items: center; gap: 12px; padding: 13px 0; }
+  .row + .row { border-top: 1px solid var(--line); }
+  .row-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+  .row-title { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
+  .row-sub { font-size: 11px; color: var(--ink-faint); }
+  .row-sub.applied { color: var(--sun-deep); font-weight: 500; }
+  .sw { flex: none; width: 36px; height: 21px; border-radius: 21px; background: var(--sun); position: relative; }
+  .sw::after {
+    content: ''; position: absolute; top: 2.5px; right: 2.5px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: oklch(0.995 0.004 90);
+    box-shadow: 0 1px 2px oklch(0.3 0.02 60 / 0.25);
+  }
+  .sw-lg { width: 44px; height: 25px; border-radius: 25px; }
+  .sw-lg::after { width: 20px; height: 20px; top: 2.5px; }
+  .fb { display: flex; align-items: center; gap: 6px; padding: 9px 0 4px; border-top: 1px solid var(--line); font-size: 12px; color: var(--ink-soft); }
+
+  /* ---------- Shot 1：hero ---------- */
+  #shot1 { display: flex; align-items: center; }
+  #shot1::before {
+    content: ''; position: absolute; right: -180px; top: -180px; width: 560px; height: 560px;
+    border-radius: 50%; background: radial-gradient(circle, oklch(0.85 0.09 80 / 0.55), transparent 70%);
+  }
+  .hero-left { width: 520px; padding: 0 0 0 84px; position: relative; }
+  .hero-left .sunmark { margin-bottom: 28px; }
+  .hero-title { font-size: 52px; line-height: 1.08; font-weight: 700; letter-spacing: -0.025em; }
+  .hero-title em { font-style: normal; color: var(--sun-deep); }
+  .hero-sub { margin-top: 20px; font-size: 18px; color: var(--ink-soft); max-width: 400px; }
+  .hero-points { margin-top: 34px; display: flex; flex-direction: column; gap: 12px; font-size: 15px; color: var(--ink); }
+  .hero-points span::before { content: '☀'; color: var(--sun-deep); margin-right: 10px; font-size: 13px; }
+
+  .hero-right { position: relative; flex: 1; height: 100%; }
+  .win {
+    position: absolute; top: 110px; left: 24px; width: 640px; height: 560px;
+    border-radius: 14px; overflow: hidden; background: white;
+    box-shadow: 0 30px 80px oklch(0.3 0.04 60 / 0.28);
+  }
+  .win-bar { height: 40px; background: var(--paper-deep); display: flex; align-items: center; gap: 8px; padding: 0 14px; border-bottom: 1px solid var(--line); }
+  .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--ink-faint); opacity: 0.5; }
+  .win-url { flex: 1; margin-left: 8px; height: 24px; border-radius: 12px; background: white; border: 1px solid var(--line); font-size: 11px; color: var(--ink-faint); display: flex; align-items: center; padding: 0 12px; }
+  .win-body { display: flex; height: calc(100% - 40px); }
+  .page { flex: 1; padding: 26px 24px; display: flex; flex-direction: column; gap: 14px; }
+  .page.dark { background: var(--night); }
+  .page .tag { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; }
+  .page.dark .tag { color: oklch(0.6 0.02 265); }
+  .page.light .tag { color: var(--ink-faint); }
+  .bar { height: 12px; border-radius: 6px; }
+  .bar.w9 { width: 90%; } .bar.w7 { width: 72%; } .bar.w8 { width: 84%; } .bar.w5 { width: 55%; }
+  .bar.title { height: 20px; width: 80%; border-radius: 8px; }
+  .page.dark .bar { background: var(--night-soft); }
+  .page.light .bar { background: var(--paper-deep); }
+  .thumb { height: 110px; border-radius: 10px; margin: 4px 0; }
+  .page.dark .thumb { background: linear-gradient(135deg, var(--night-soft), oklch(0.4 0.03 265)); }
+  .page.light .thumb { background: linear-gradient(135deg, var(--paper-deep), oklch(0.9 0.05 85)); }
+  .hero-panel { position: absolute; right: 56px; bottom: 64px; }
+
+  /* ---------- Shot 2：controls ---------- */
+  #shot2 { display: flex; align-items: center; justify-content: center; gap: 90px; }
+  #shot2::before {
+    content: ''; position: absolute; left: -160px; bottom: -200px; width: 520px; height: 520px;
+    border-radius: 50%; background: radial-gradient(circle, oklch(0.85 0.09 80 / 0.45), transparent 70%);
+  }
+  .ctl-left { width: 460px; position: relative; }
+  .ctl-title { font-size: 42px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+  .ctl-title em { font-style: normal; color: var(--sun-deep); }
+  .ctl-list { margin-top: 36px; display: flex; flex-direction: column; gap: 26px; }
+  .ctl-item { display: flex; gap: 16px; }
+  .ctl-num {
+    flex: none; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--sun); color: white; font-weight: 700; font-size: 14px;
+    display: grid; place-items: center; margin-top: 2px;
+  }
+  .ctl-item h3 { font-size: 17px; font-weight: 650; }
+  .ctl-item p { font-size: 14px; color: var(--ink-soft); margin-top: 3px; max-width: 330px; }
+  .ctl-panel { transform: scale(1.35); transform-origin: center; }
+
+  /* ---------- Promo tile ---------- */
+  #promo { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+  #promo::before {
+    content: ''; position: absolute; right: -90px; top: -90px; width: 280px; height: 280px;
+    border-radius: 50%; background: radial-gradient(circle, oklch(0.85 0.09 80 / 0.5), transparent 70%);
+  }
+  .promo-name { font-size: 27px; font-weight: 700; letter-spacing: -0.02em; }
+  .promo-tag { font-size: 13.5px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<!-- 复用的 SVG 太阳 -->
+<svg style="display:none"><defs><g id="sun-icon">
+  <circle cx="12" cy="12" r="4.6" fill="currentColor" />
+  <g stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+    <line x1="12" y1="1.5" x2="12" y2="4.4" /><line x1="12" y1="19.6" x2="12" y2="22.5" />
+    <line x1="1.5" y1="12" x2="4.4" y2="12" /><line x1="19.6" y1="12" x2="22.5" y2="12" />
+    <line x1="4.6" y1="4.6" x2="6.6" y2="6.6" /><line x1="17.4" y1="17.4" x2="19.4" y2="19.4" />
+    <line x1="4.6" y1="19.4" x2="6.6" y2="17.4" /><line x1="17.4" y1="6.6" x2="19.4" y2="4.6" />
+  </g>
+</g></defs></svg>
+
+<!-- Shot 1: hero -->
+<section class="board shot" id="shot1">
+  <div class="hero-left">
+    <svg class="sunmark" viewBox="0 0 24 24" width="44" height="44"><use href="#sun-icon"/></svg>
+    <h1 class="hero-title">Every website,<br /><em>light mode.</em></h1>
+    <p class="hero-sub">Overrides dark themes and system dark mode — even sites with their own dark styling.</p>
+    <div class="hero-points">
+      <span>Neutralizes dark CSS, matchMedia and theme markers</span>
+      <span>Works with Shadow DOM, CSS-in-JS and iframes</span>
+      <span>Toggles instantly — no page reload</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="win">
+      <div class="win-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="win-url">example.com</span>
+      </div>
+      <div class="win-body">
+        <div class="page dark">
+          <span class="tag">BEFORE</span>
+          <div class="bar title"></div>
+          <div class="bar w9"></div><div class="bar w7"></div>
+          <div class="thumb"></div>
+          <div class="bar w8"></div><div class="bar w5"></div><div class="bar w7"></div>
+        </div>
+        <div class="page light">
+          <span class="tag">AFTER</span>
+          <div class="bar title"></div>
+          <div class="bar w9"></div><div class="bar w7"></div>
+          <div class="thumb"></div>
+          <div class="bar w8"></div><div class="bar w5"></div><div class="bar w7"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel hero-panel">
+      <div class="row">
+        <svg class="sunmark" viewBox="0 0 24 24" width="22" height="22"><use href="#sun-icon"/></svg>
+        <span class="row-text">
+          <span class="row-title">Force light mode</span>
+          <span class="row-sub">Always Light Mode</span>
+        </span>
+        <span class="sw sw-lg"></span>
+      </div>
+      <div class="row">
+        <span class="row-text">
+          <span class="row-title">example.com</span>
+          <span class="row-sub applied">Light mode applied</span>
+        </span>
+        <span class="sw"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Shot 2: controls -->
+<section class="board shot" id="shot2">
+  <div class="ctl-left">
+    <h2 class="ctl-title">Simple controls,<br /><em>full control.</em></h2>
+    <div class="ctl-list">
+      <div class="ctl-item">
+        <span class="ctl-num">1</span>
+        <div><h3>One master switch</h3><p>Turn light mode on or off everywhere — it applies instantly, no reload.</p></div>
+      </div>
+      <div class="ctl-item">
+        <span class="ctl-num">2</span>
+        <div><h3>Exclude any site</h3><p>Prefer a site untouched? Flip its switch and it keeps its own theme.</p></div>
+      </div>
+      <div class="ctl-item">
+        <span class="ctl-num">3</span>
+        <div><h3>Feedback built in</h3><p>Found a stubborn site? Report it by email straight from the panel.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="ctl-panel">
+    <div class="panel">
+      <div class="row">
+        <svg class="sunmark" viewBox="0 0 24 24" width="22" height="22"><use href="#sun-icon"/></svg>
+        <span class="row-text">
+          <span class="row-title">Force light mode</span>
+          <span class="row-sub">Always Light Mode</span>
+        </span>
+        <span class="sw sw-lg"></span>
+      </div>
+      <div class="row">
+        <span class="row-text">
+          <span class="row-title">github.com</span>
+          <span class="row-sub applied">Light mode applied</span>
+        </span>
+        <span class="sw"></span>
+      </div>
+      <div class="fb">
+        <svg viewBox="0 0 24 24" width="13" height="13">
+          <rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8" />
+          <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Email feedback
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promo tile 440x280 -->
+<section class="board promo" id="promo">
+  <svg class="sunmark" viewBox="0 0 24 24" width="52" height="52"><use href="#sun-icon"/></svg>
+  <div class="promo-name">Always Light Mode</div>
+  <div class="promo-tag">Every website, light mode.</div>
+</section>
+
+</body>
+</html>

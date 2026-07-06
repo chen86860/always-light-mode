@@ -15,10 +15,6 @@
     "message": "이 페이지에서는 사용할 수 없음",
     "description": "Popup: shown when the current page cannot be controlled"
   },
-  "reloadHint": {
-    "message": "변경 시 페이지가 새로고침됩니다",
-    "description": "Popup: hint that toggling reloads the page"
-  },
   "siteApplied": {
     "message": "라이트 모드 적용됨",
     "description": "Popup: site status when light mode is applied"

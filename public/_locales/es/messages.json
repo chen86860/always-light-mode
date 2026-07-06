@@ -15,10 +15,6 @@
     "message": "No disponible en esta página",
     "description": "Popup: shown when the current page cannot be controlled"
   },
-  "reloadHint": {
-    "message": "Los cambios recargan la página",
-    "description": "Popup: hint that toggling reloads the page"
-  },
   "siteApplied": {
     "message": "Modo claro aplicado",
     "description": "Popup: site status when light mode is applied"

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="color-scheme" content="dark light">
+<script>
+  // 模拟站点在 <head> 里提前设置暗色主题（很多站防闪烁的做法）
+  document.documentElement.classList.add('dark');
+  document.documentElement.setAttribute('data-theme', 'dark');
+</script>
+<style>
+  #media-target { color: rgb(0, 128, 0); }
+  @media (prefers-color-scheme: dark) {
+    #media-target { color: rgb(255, 0, 0); }
+  }
+  @media screen and (prefers-color-scheme:dark) {
+    #media-target { background-color: rgb(255, 0, 0); }
+  }
+  @layer base {
+    @media (prefers-color-scheme: dark) {
+      #media-target { text-decoration-color: rgb(255, 0, 0); }
+    }
+  }
+</style>
+</head>
+<body>
+<div id="media-target" style="border: 1px solid rgb(0,128,0)">target</div>
+<div id="shadow-host"></div>
+<pre id="results"></pre>
+<script>
+  // constructed stylesheet，走 replaceSync
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync('@media (prefers-color-scheme: dark) { #media-target { outline-color: rgb(255,0,0); } }');
+  document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+
+  // open shadow root 内的暗色样式
+  const host = document.getElementById('shadow-host');
+  const root = host.attachShadow({ mode: 'open' });
+  root.innerHTML = '<style>span{color:rgb(0,128,0)} @media (prefers-color-scheme: dark){span{color:rgb(255,0,0)}}</style><span id="inner">shadow</span>';
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const t = document.getElementById('media-target');
+      const cs = getComputedStyle(t);
+      const results = {
+        matchMediaDark: matchMedia('(prefers-color-scheme: dark)').matches,
+        matchMediaDarkCompound: matchMedia('screen and (prefers-color-scheme:dark)').matches,
+        matchMediaLight: matchMedia('(prefers-color-scheme: light)').matches,
+        matchMediaMediaString: matchMedia('(prefers-color-scheme: dark)').media,
+        htmlHasDarkClass: document.documentElement.classList.contains('dark'),
+        dataTheme: document.documentElement.getAttribute('data-theme'),
+        mediaRuleColor: cs.color,
+        compoundMediaBg: cs.backgroundColor,
+        layerNestedDecoration: cs.textDecorationColor,
+        constructedOutline: cs.outlineColor,
+        shadowColor: getComputedStyle(root.getElementById('inner')).color,
+        colorScheme: cs.colorScheme,
+      };
+      document.getElementById('results').textContent = 'RESULTS:' + JSON.stringify(results);
+    }, 300);
+  });
+</script>
+</body>
+</html>
