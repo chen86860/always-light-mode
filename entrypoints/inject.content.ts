@@ -1,4 +1,5 @@
 import { SHADOW_ATTACHED_EVENT } from './utils/observers/shadow-observer';
+import { DARK_THEME_NAMES } from './utils/theme-names';
 
 /**
  * 运行在页面 MAIN world 的补丁，由 background 通过 scripting.registerContentScripts
@@ -66,6 +67,53 @@ export default defineContentScript({
       proto.insertRule = function (rule: string, index?: number) {
         return nativeInsertRule.call(this, rewriteCssText(rule) as string, index);
       };
+    }
+
+    // --- 存储的主题偏好：很多站点启动时读 localStorage 决定暗色，在源头改写为 light ---
+    const THEME_KEY = /theme|color-?scheme|color-?mode|appearance|dark/i;
+    const DARK_KEY = /dark/i;
+    // 带 /g 的正则不能复用做 .test()（lastIndex 会残留），检测与替换分开
+    const DARK_VALUE = /dark|night/i;
+    const DARK_VALUE_REPLACE = /dark|night/gi;
+
+    const rewriteStoredTheme = (key: string, value: unknown): unknown => {
+      if (!enabled || typeof value !== 'string' || !THEME_KEY.test(key)) return value;
+      // 子串替换而非整值替换：兼容 JSON 形式的存储值（如 {"mode":"dark"}）
+      if (DARK_VALUE.test(value)) return value.replace(DARK_VALUE_REPLACE, 'light');
+      if (DARK_THEME_NAMES.has(value.trim().toLowerCase())) return 'light';
+      // darkMode=true / 1 这类布尔式偏好
+      if (DARK_KEY.test(key)) {
+        if (value === 'true') return 'false';
+        if (value === '1') return '0';
+      }
+      return value;
+    };
+
+    try {
+      const nativeGetItem = Storage.prototype.getItem;
+      Storage.prototype.getItem = function (key: string) {
+        return rewriteStoredTheme(String(key), nativeGetItem.call(this, key)) as string | null;
+      };
+
+      // localStorage.theme 这类属性式读取不经过 getItem，包一层 Proxy 拦截
+      const nativeLocalStorage = window.localStorage;
+      const proxy = new Proxy(nativeLocalStorage, {
+        get(target, prop) {
+          const value = Reflect.get(target, prop);
+          // Storage 方法直接调用会 Illegal invocation，绑回原对象（getItem 已在原型上打过补丁）
+          if (typeof value === 'function') return value.bind(target);
+          if (typeof prop === 'string' && typeof value === 'string') {
+            return rewriteStoredTheme(prop, value);
+          }
+          return value;
+        },
+      });
+      Object.defineProperty(window, 'localStorage', {
+        get: () => proxy,
+        configurable: true,
+      });
+    } catch {
+      // 沙箱 iframe / 隐私设置下访问 localStorage 会抛异常，跳过该增强
     }
 
     // --- shadow DOM：创建时通知 ISOLATED world 处理其中的样式表 ---

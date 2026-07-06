@@ -12,8 +12,9 @@ export const addLightModeStyle = () => {
 
   const style = document.createElement('style');
   style.id = STYLE_ID;
+  // 用 * 覆盖到所有元素：组件级的 color-scheme: dark（配合 light-dark()）也要压住
   style.textContent = `
-    :root, :host, html, body {
+    :root, :host, * {
       color-scheme: light !important;
     }
   `;

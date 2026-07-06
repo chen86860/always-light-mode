@@ -1,5 +1,33 @@
 # Changelog
 
+## 1.4.0 (2026-07-06)
+
+### Added
+
+- **Stored theme preference interception.** Sites that boot into dark mode by reading a saved
+  preference (`localStorage.theme`, `darkMode`, `color-mode` and similar keys, including JSON
+  values like `{"mode":"dark"}`) now read `light` at the source: `Storage.prototype.getItem`
+  is patched and `window.localStorage` is wrapped in a Proxy to cover property-style reads
+  (`localStorage.theme`). Gated on the extension toggle — reads pass through unchanged when
+  disabled — and degrades silently in sandboxed iframes.
+- **Dark theme name dictionary** (`utils/theme-names.ts`): theme attribute and stored values
+  that are dark themes without "dark" in the name (daisyUI's dracula, synthwave, black, dim,
+  coffee, …) are rewritten to `light`.
+
+### Changed
+
+- Dark class detection upgraded from a fixed 7-word list to token-level matching: variants
+  like `theme--dark`, `is_dark` and `nightmode` are now caught, while `darken` and Tailwind's
+  `dark:` variant classes are correctly left alone.
+- `color-scheme: light` is now forced on all elements (previously root/body only), covering
+  component-level `color-scheme: dark` combined with `light-dark()`.
+
+### Known limitations
+
+- While the extension is enabled, a site's own theme switcher reads the stored preference as
+  `light` — by design (dark never flashes), but worth knowing when triaging "my theme setting
+  doesn't stick" reports.
+
 ## 1.3.0 (2026-07-05)
 
 ### Changed

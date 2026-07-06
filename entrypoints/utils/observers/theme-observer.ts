@@ -1,4 +1,9 @@
-const DARK_CLASSES = ['dark', 'theme-dark', 'dark-theme', 'dark-mode', 'darkmode', 'night', 'night-mode'];
+import { DARK_THEME_NAMES } from '../theme-names';
+
+// token 级匹配：dark/night（可带 mode/theme 后缀）作为独立词段出现，
+// 覆盖 dark、darkmode、dark-mode、theme--dark、is_dark 等变体；
+// 词段边界要求排除 darken 这类子串，也排除 Tailwind 的 dark: 变体类
+const DARK_CLASS_TOKEN = /(^|[-_])(dark|night)(mode|theme)?(?=[-_]|$)/i;
 
 // 常见框架/网站声明主题用的属性：
 // data-theme（daisyUI 等）、data-color-mode（GitHub）、data-bs-theme（Bootstrap 5.3+）等
@@ -36,9 +41,9 @@ const styleEdits: { element: HTMLElement; original: string }[] = [];
 export const forceLightTheme = (element: HTMLElement) => {
   if (!element) return;
 
-  for (const cls of DARK_CLASSES) {
-    // 先判断再移除，避免无意义的 attribute 变更触发页面自己的观察器
-    if (element.classList?.contains(cls)) {
+  // 先收集再移除，避免遍历中修改 classList；只在命中时变更，防止触发页面自己的观察器
+  for (const cls of Array.from(element.classList ?? [])) {
+    if (DARK_CLASS_TOKEN.test(cls)) {
       element.classList.remove(cls);
       classEdits.push({ element, token: cls });
     }
@@ -46,8 +51,15 @@ export const forceLightTheme = (element: HTMLElement) => {
 
   for (const attr of THEME_ATTRIBUTES) {
     const value = element.getAttribute(attr);
-    if (value && DARK_VALUE.test(value)) {
-      const rewritten = value.replace(DARK_VALUE_REPLACE, 'light');
+    if (!value) continue;
+    let rewritten: string | null = null;
+    if (DARK_VALUE.test(value)) {
+      rewritten = value.replace(DARK_VALUE_REPLACE, 'light');
+    } else if (DARK_THEME_NAMES.has(value.trim().toLowerCase())) {
+      // dracula/synthwave 这类名字不含 dark 的暗色主题，整值替换
+      rewritten = 'light';
+    }
+    if (rewritten !== null) {
       element.setAttribute(attr, rewritten);
       attrEdits.push({ element, attr, original: value, rewritten });
     }

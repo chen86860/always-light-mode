@@ -5,6 +5,7 @@
 <script>
   // 模拟站点在 <head> 里提前设置暗色主题（很多站防闪烁的做法）
   document.documentElement.classList.add('dark');
+  document.documentElement.classList.add('theme--dark'); // token 级类名变体
   document.documentElement.setAttribute('data-theme', 'dark');
 </script>
 <style>
@@ -32,6 +33,15 @@
   sheet.replaceSync('@media (prefers-color-scheme: dark) { #media-target { outline-color: rgb(255,0,0); } }');
   document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
 
+  // 名字不含 dark 的暗色主题名（daisyUI 风格），由 body 观察器改写
+  document.body.setAttribute('data-theme', 'dracula');
+
+  // 存储的主题偏好：写入真实值，读取时应被 MAIN world 补丁改写
+  localStorage.setItem('theme', 'dark');
+  localStorage.setItem('darkMode', 'true');
+  localStorage.setItem('app-color-mode', '{"mode":"dark"}');
+  localStorage.setItem('nickname', 'darkwing'); // 非主题 key，不应被改写
+
   // open shadow root 内的暗色样式
   const host = document.getElementById('shadow-host');
   const root = host.attachShadow({ mode: 'open' });
@@ -47,7 +57,14 @@
         matchMediaLight: matchMedia('(prefers-color-scheme: light)').matches,
         matchMediaMediaString: matchMedia('(prefers-color-scheme: dark)').media,
         htmlHasDarkClass: document.documentElement.classList.contains('dark'),
+        htmlHasTokenDarkClass: document.documentElement.classList.contains('theme--dark'),
         dataTheme: document.documentElement.getAttribute('data-theme'),
+        bodyDataTheme: document.body.getAttribute('data-theme'),
+        storedTheme: localStorage.getItem('theme'),
+        storedThemeProp: localStorage.theme,
+        storedDarkModeBool: localStorage.getItem('darkMode'),
+        storedJsonMode: localStorage.getItem('app-color-mode'),
+        storedNonTheme: localStorage.getItem('nickname'),
         mediaRuleColor: cs.color,
         compoundMediaBg: cs.backgroundColor,
         layerNestedDecoration: cs.textDecorationColor,
