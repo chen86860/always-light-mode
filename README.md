@@ -12,7 +12,7 @@ A browser extension that forces every website into light mode — overriding dar
 
 Get it from the Chrome Web Store — one click, no configuration needed:
 
-<a href="https://chromewebstore.google.com/detail/always-light-mode/njnammmpdodmfkodnfpammnpdcbhnlcm"><img src="https://developer.chrome.com/static/docs/webstore/branding/image/UV4C4ybeBTsZt43U4xis.png" alt="Available in the Chrome Web Store" height="58"></a>
+<a href="https://chromewebstore.google.com/detail/always-light-mode/njnammmpdodmfkodnfpammnpdcbhnlcm"><img src="./assets/chrome web store.png" alt="Available in the Chrome Web Store" height="58"></a>
 
 Also works on Edge, Brave, Arc and other Chromium-based browsers — install from the same link. Firefox users can build from source (see [Development](#development)).
 
