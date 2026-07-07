@@ -2,7 +2,19 @@
 
 > Every website, light mode. ☀️
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/njnammmpdodmfkodnfpammnpdcbhnlcm?label=Chrome%20Web%20Store&color=blue)](https://chromewebstore.google.com/detail/always-light-mode/njnammmpdodmfkodnfpammnpdcbhnlcm)
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/njnammmpdodmfkodnfpammnpdcbhnlcm?label=users)](https://chromewebstore.google.com/detail/always-light-mode/njnammmpdodmfkodnfpammnpdcbhnlcm)
+[![CI](https://github.com/chen86860/always-light-mode/actions/workflows/ci.yml/badge.svg)](https://github.com/chen86860/always-light-mode/actions/workflows/ci.yml)
+
 A browser extension that forces every website into light mode — overriding dark themes and system dark mode, even on sites that ship their own dark styling.
+
+## Install
+
+Get it from the Chrome Web Store — one click, no configuration needed:
+
+<a href="https://chromewebstore.google.com/detail/always-light-mode/njnammmpdodmfkodnfpammnpdcbhnlcm"><img src="https://developer.chrome.com/static/docs/webstore/branding/image/UV4C4ybeBTsZt43U4xis.png" alt="Available in the Chrome Web Store" height="58"></a>
+
+Also works on Edge, Brave, Arc and other Chromium-based browsers — install from the same link. Firefox users can build from source (see [Development](#development)).
 
 ![Always Light Mode](assets/store/screenshot-1-hero.png)
 
@@ -45,12 +57,12 @@ Built with [WXT](https://wxt.dev) + TypeScript. No runtime framework — the pop
 
 Two content scripts are **registered dynamically** by the background (`scripting.registerContentScripts`), so the enabled state and per-site exclusions are baked into the registration — pages never race an async storage read:
 
-| File | World | Role |
-|---|---|---|
-| `entrypoints/inject.content.ts` | MAIN | Patches `matchMedia`, `CSSStyleSheet.replace/insertRule`, `attachShadow` before page scripts run |
-| `entrypoints/content.ts` | ISOLATED | Neutralizes dark CSS/theme markers, observes DOM/style/shadow-root changes, live enable/disable via storage watch |
-| `entrypoints/background.ts` | — | Syncs registrations and the toolbar icon |
-| `entrypoints/popup/` | — | Control panel |
+| File                            | World    | Role                                                                                                              |
+| ------------------------------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
+| `entrypoints/inject.content.ts` | MAIN     | Patches `matchMedia`, `CSSStyleSheet.replace/insertRule`, `attachShadow` before page scripts run                  |
+| `entrypoints/content.ts`        | ISOLATED | Neutralizes dark CSS/theme markers, observes DOM/style/shadow-root changes, live enable/disable via storage watch |
+| `entrypoints/background.ts`     | —        | Syncs registrations and the toolbar icon                                                                          |
+| `entrypoints/popup/`            | —        | Control panel                                                                                                     |
 
 ### Testing
 
