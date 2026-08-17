@@ -1,5 +1,6 @@
 import { SHADOW_ATTACHED_EVENT } from './utils/observers/shadow-observer';
 import { DARK_THEME_NAMES } from './utils/theme-names';
+import { isInjectableDocument } from './utils/document-type';
 
 /**
  * 运行在页面 MAIN world 的补丁，由 background 通过 scripting.registerContentScripts
@@ -10,6 +11,9 @@ export default defineContentScript({
   matches: ['<all_urls>'],
   registration: 'runtime',
   main() {
+    // XML/SVG/RSS 等非网页文档不做任何改写，页面对象也保持原样
+    if (!isInjectableDocument()) return;
+
     // 注入即启用；content.ts 的 enable/disable 事件负责运行时切换
     let enabled = true;
     document.addEventListener('__almEnable', () => (enabled = true));

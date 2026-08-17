@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.4.1 (2026-08-17)
+
+### Fixed
+
+- **No more injection into XML documents.** Viewing `sitemap.xml`, an RSS/Atom feed or a
+  standalone SVG showed a stray `<style id="__always-light-mode__">` node in the browser's
+  XML tree viewer — in those documents the DOM *is* what the user sees. Both content scripts
+  now bail out on XML content types (`application/xml`, `text/xml`, any `*+xml` except
+  `application/xhtml+xml`), leaving the document tree and the page's JS objects untouched.
+  Content that Chrome merely wraps in an HTML document (`text/plain`, JSON, images) is still
+  forced to light — those built-in viewers do honor `color-scheme`.
+- The `alm-ping` listener is now registered on every page, including ones the extension
+  leaves alone, so toggling from the popup no longer triggers a pointless page reload there.
+
 ## 1.4.0 (2026-07-06)
 
 ### Added

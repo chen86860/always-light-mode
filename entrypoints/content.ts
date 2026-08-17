@@ -4,6 +4,7 @@ import { setupStyleObserver, teardownStyleObserver } from './utils/observers/sty
 import { setupThemeObserver, teardownThemeObserver } from './utils/observers/theme-observer';
 import { setupShadowObserver, teardownShadowObserver } from './utils/observers/shadow-observer';
 import { lightModeEnabledStorage, disabledSitesStorage } from './utils/storage';
+import { isInjectableDocument } from './utils/document-type';
 
 /** 通知 MAIN world 补丁启停，见 inject.content.ts */
 export const STATE_EVENTS = { enable: '__almEnable', disable: '__almDisable' } as const;
@@ -17,6 +18,18 @@ export default defineContentScript({
   matches: ['<all_urls>'],
   registration: 'runtime',
   main() {
+    // popup 用 ping 探测本页是否已注入脚本（未注入且需要启用时才刷新页面）。
+    // 注册在最前面：即使本页不做任何改写，也要应答，避免 popup 白刷新一次。
+    browser.runtime.onMessage.addListener(
+      (message: unknown, _sender: unknown, sendResponse: (response: string) => void) => {
+        if (message === 'alm-ping') sendResponse('alm-pong');
+      },
+    );
+
+    // XML/SVG/RSS 等由浏览器内置的 XML 查看器渲染，文档树就是用户看到的内容，
+    // 注入 <style>、改写属性都会直接污染显示（且这类文档不吃 color-scheme）
+    if (!isInjectableDocument()) return;
+
     let active = false;
 
     const enable = () => {
@@ -58,12 +71,5 @@ export default defineContentScript({
     };
     lightModeEnabledStorage.watch(applyState);
     disabledSitesStorage.watch(applyState);
-
-    // popup 用 ping 探测本页是否已注入脚本（未注入且需要启用时才刷新页面）
-    browser.runtime.onMessage.addListener(
-      (message: unknown, _sender: unknown, sendResponse: (response: string) => void) => {
-        if (message === 'alm-ping') sendResponse('alm-pong');
-      },
-    );
   },
 });
