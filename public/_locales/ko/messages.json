@@ -34,5 +34,9 @@
   "feedbackSend": {
     "message": "보내기",
     "description": "Popup: feedback send button"
+  },
+  "sponsor": {
+    "message": "후원하기",
+    "description": "Popup: Stripe sponsor link"
   }
 }

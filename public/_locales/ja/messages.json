@@ -34,5 +34,9 @@
   "feedbackSend": {
     "message": "送信",
     "description": "Popup: feedback send button"
+  },
+  "sponsor": {
+    "message": "支援する",
+    "description": "Popup: Stripe sponsor link"
   }
 }

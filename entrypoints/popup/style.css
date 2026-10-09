@@ -27,7 +27,8 @@ body {
 }
 
 .panel {
-  padding: 6px 16px 12px;
+  /* 底部 4px + 收起的反馈区残留的 4px 内边距，与分隔线下方留白对称 */
+  padding: 6px 16px 4px;
 }
 
 /* ---- 全局开关：主角 ---- */
@@ -178,8 +179,13 @@ body {
 
 .feedback {
   border-top: 1px solid var(--line);
-  margin-top: 10px;
-  padding-top: 4px;
+  padding-top: 8px;
+}
+
+.footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .feedback-toggle {
@@ -198,6 +204,28 @@ body {
 
 .feedback-toggle:hover {
   color: var(--ink);
+}
+
+.sponsor {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s var(--ease-out);
+}
+
+.sponsor:hover {
+  color: var(--sun-deep);
+}
+
+.feedback-toggle:focus-visible,
+.sponsor:focus-visible {
+  outline: 2px solid var(--sun-deep);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* grid-template-rows 展开动画（不动画 height） */

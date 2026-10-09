@@ -15,12 +15,14 @@ const applyTexts = () => {
   $('label-app').textContent = t('appName');
   $('label-global').textContent = t('forceLight');
   $('label-feedback').textContent = t('feedback');
+  $('label-sponsor').textContent = t('sponsor');
   $<HTMLTextAreaElement>('feedback-text').placeholder = t('feedbackPlaceholder');
   $('feedback-send').textContent = t('feedbackSend');
   document.title = t('appName');
 };
 
 const SUPPORT_EMAIL = 'support@emmmm.dev';
+const SPONSOR_URL = 'https://buy.stripe.com/9B6cN4dL4g3mcuS5B3gQE07';
 
 const setupFeedback = (currentUrl?: string) => {
   const section = document.querySelector('.feedback') as HTMLElement;
@@ -76,6 +78,7 @@ const reloadIfNeeded = async (tabId: number | undefined, shouldBeOn: boolean) =>
 
 const main = async () => {
   applyTexts();
+  $<HTMLAnchorElement>('sponsor-link').href = SPONSOR_URL;
 
   const tab = await getActiveTab();
   const host = getHostname(tab?.url);
@@ -121,9 +124,7 @@ const main = async () => {
     excluded = !siteToggle.checked;
     render();
     const sites = await disabledSitesStorage.getValue();
-    const next = excluded
-      ? [...new Set([...sites, host])]
-      : sites.filter((site: string) => site !== host);
+    const next = excluded ? [...new Set([...sites, host])] : sites.filter((site: string) => site !== host);
     await disabledSitesStorage.setValue(next);
     await syncContentScripts();
     await reloadIfNeeded(tab?.id, globalToggle.checked && !excluded);

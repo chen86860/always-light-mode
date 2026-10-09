@@ -34,5 +34,9 @@
   "feedbackSend": {
     "message": "发送",
     "description": "Popup: feedback send button"
+  },
+  "sponsor": {
+    "message": "赞助",
+    "description": "Popup: Stripe sponsor link"
   }
 }

@@ -34,5 +34,9 @@
   "feedbackSend": {
     "message": "Senden",
     "description": "Popup: feedback send button"
+  },
+  "sponsor": {
+    "message": "Unterstützen",
+    "description": "Popup: Stripe sponsor link"
   }
 }
