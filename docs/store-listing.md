@@ -24,6 +24,9 @@ No tracking, no analytics, no data collection. Your settings sync through your b
 
 Lightweight: no frameworks, just a few kilobytes.
 
+Website: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
+
 ## 简体中文 (zh_CN)
 
 Always Light Mode 强制所有网站使用浅色模式——包括自带深色主题的网站。
@@ -45,6 +48,9 @@ Always Light Mode 强制所有网站使用浅色模式——包括自带深色�
 无跟踪、无统计、不收集任何数据。设置通过浏览器账号同步，一切都在本地运行。
 
 轻量：不依赖任何框架，只有几 KB。
+
+官网: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
 
 ## Deutsch (de)
 
@@ -68,6 +74,9 @@ Kein Tracking, keine Analyse, keine Datenerfassung. Einstellungen werden über I
 
 Leichtgewichtig: keine Frameworks, nur wenige Kilobyte.
 
+Website: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
+
 ## Español (es)
 
 Always Light Mode fuerza el modo claro en todos los sitios web, incluso en los que traen su propio tema oscuro.
@@ -89,6 +98,9 @@ PRIVACIDAD
 Sin rastreo, sin analíticas, sin recopilación de datos. La configuración se sincroniza con tu cuenta del navegador. Todo funciona en tu dispositivo.
 
 Ligera: sin frameworks, solo unos pocos kilobytes.
+
+Sitio web: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
 
 ## Français (fr)
 
@@ -112,6 +124,9 @@ Pas de suivi, pas d'analyse, aucune collecte de données. Vos réglages se synch
 
 Légère : aucun framework, quelques kilo-octets seulement.
 
+Site web: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
+
 ## Italiano (it)
 
 Always Light Mode forza la modalità chiara su ogni sito web, anche su quelli con un tema scuro integrato.
@@ -133,6 +148,9 @@ PRIVACY
 Nessun tracciamento, nessuna analisi, nessuna raccolta dati. Le impostazioni si sincronizzano con il tuo account del browser. Tutto funziona sul tuo dispositivo.
 
 Leggera: nessun framework, solo pochi kilobyte.
+
+Sito web: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
 
 ## 日本語 (ja)
 
@@ -156,6 +174,9 @@ Always Light Mode は、独自のダークテーマを持つサイトも含め�
 
 軽量：フレームワーク不使用、わずか数 KB。
 
+ウェブサイト: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
+
 ## 한국어 (ko)
 
 Always Light Mode는 자체 다크 테마가 있는 사이트를 포함해 모든 웹사이트를 라이트 모드로 강제 적용합니다.
@@ -177,6 +198,9 @@ Always Light Mode는 자체 다크 테마가 있는 사이트를 포함해 모�
 추적 없음, 분석 없음, 데이터 수집 없음. 설정은 브라우저 계정으로 동기화되며 모든 동작은 기기 내에서 이루어집니다.
 
 가벼움: 프레임워크 없이 단 몇 KB.
+
+웹사이트: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
 
 ## Português (pt)
 
@@ -200,6 +224,9 @@ Sem rastreamento, sem análises, sem coleta de dados. Suas configurações sincr
 
 Leve: sem frameworks, apenas alguns kilobytes.
 
+Site: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
+
 ## Русский (ru)
 
 Always Light Mode принудительно включает светлый режим на всех сайтах — даже на тех, у которых есть собственная тёмная тема.
@@ -221,3 +248,6 @@ Always Light Mode принудительно включает светлый р�
 Без отслеживания, без аналитики, без сбора данных. Настройки синхронизируются через аккаунт браузера. Всё работает на вашем устройстве.
 
 Лёгкое расширение: без фреймворков, всего несколько килобайт.
+
+Сайт: https://always-light-mode.emmmm.dev/
+GitHub: https://github.com/chen86860/always-light-mode
