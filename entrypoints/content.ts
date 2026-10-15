@@ -4,6 +4,7 @@ import { setupStyleObserver, teardownStyleObserver } from './utils/observers/sty
 import { setupThemeObserver, teardownThemeObserver } from './utils/observers/theme-observer';
 import { setupShadowObserver, teardownShadowObserver } from './utils/observers/shadow-observer';
 import { setupAppleMusicFix, teardownAppleMusicFix } from './utils/sites/apple-music';
+import { setupOpencodeFix, teardownOpencodeFix } from './utils/sites/opencode';
 import { lightModeEnabledStorage, disabledSitesStorage } from './utils/storage';
 import { isInjectableDocument } from './utils/document-type';
 
@@ -42,6 +43,7 @@ export default defineContentScript({
       setupStyleObserver();
       setupShadowObserver();
       setupAppleMusicFix();
+      setupOpencodeFix();
     };
 
     const disable = () => {
@@ -52,6 +54,7 @@ export default defineContentScript({
       teardownStyleObserver();
       teardownShadowObserver();
       teardownAppleMusicFix();
+      teardownOpencodeFix();
       restoreDarkRules();
       restoreMetaColorScheme();
       removeLightModeStyle();
