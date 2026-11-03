@@ -8,6 +8,8 @@ const siteRow = $('site-row');
 const siteLabel = $('label-site');
 const globalToggle = $<HTMLInputElement>('global-toggle');
 const siteToggle = $<HTMLInputElement>('site-toggle');
+const turnOffSite = $<HTMLButtonElement>('turn-off-site');
+const feedbackSection = document.querySelector('.feedback') as HTMLElement;
 
 const t = (key: string) => browser.i18n.getMessage(key as Parameters<typeof browser.i18n.getMessage>[0]);
 
@@ -16,6 +18,7 @@ const applyTexts = () => {
   $('label-global').textContent = t('forceLight');
   $('label-feedback').textContent = t('feedback');
   $('label-sponsor').textContent = t('sponsor');
+  turnOffSite.textContent = t('turnOffSite');
   $<HTMLTextAreaElement>('feedback-text').placeholder = t('feedbackPlaceholder');
   $('feedback-send').textContent = t('feedbackSend');
   document.title = t('appName');
@@ -100,6 +103,11 @@ const main = async () => {
     siteToggle.checked = enabled && !excluded;
     siteLabel.textContent = excluded ? t('siteExcluded') : t('siteApplied');
     siteLabel.classList.toggle('applied', enabled && !excluded);
+    // 当前站点可关闭时，底部入口变为「页面显示异常？」，展开后首个动作是一键关闭
+    const canTurnOff = enabled && !excluded;
+    feedbackSection.classList.toggle('can-turn-off', canTurnOff);
+    $('label-feedback').textContent = canTurnOff ? t('siteBroken') : t('feedback');
+    turnOffSite.hidden = !canTurnOff;
   };
 
   if (host) {
@@ -122,15 +130,33 @@ const main = async () => {
     await reloadIfNeeded(tab?.id, globalToggle.checked && !excluded);
   });
 
-  siteToggle.addEventListener('change', async () => {
+  const saveExcluded = async () => {
     if (!host) return;
-    excluded = !siteToggle.checked;
-    render();
     const sites = await disabledSitesStorage.getValue();
     const next = excluded ? [...new Set([...sites, host])] : sites.filter((site: string) => site !== host);
     await disabledSitesStorage.setValue(next);
     await syncContentScripts();
+  };
+
+  siteToggle.addEventListener('change', async () => {
+    if (!host) return;
+    excluded = !siteToggle.checked;
+    render();
+    await saveExcluded();
     await reloadIfNeeded(tab?.id, globalToggle.checked && !excluded);
+  });
+
+  // 页面被弄坏时：排除本站并强制刷新（MAIN world 补丁已打在页面上，只有刷新才能彻底移除），
+  // 然后把焦点交给反馈框，趁用户还在现场收集出了什么问题
+  turnOffSite.addEventListener('click', async () => {
+    if (!host) return;
+    excluded = true;
+    render();
+    await saveExcluded();
+    if (tab?.id) await browser.tabs.reload(tab.id);
+    const text = $<HTMLTextAreaElement>('feedback-text');
+    text.placeholder = t('siteBrokenFeedback');
+    text.focus();
   });
 };
 

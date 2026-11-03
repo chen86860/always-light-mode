@@ -38,5 +38,17 @@
   "sponsor": {
     "message": "후원하기",
     "description": "Popup: Stripe sponsor link"
+  },
+  "siteBroken": {
+    "message": "페이지가 깨져 보이나요?",
+    "description": "Popup: footer entry that opens the problem panel when the current site can be turned off"
+  },
+  "turnOffSite": {
+    "message": "이 사이트에서 끄기",
+    "description": "Popup: button in the problem panel that turns the extension off for the current site and reloads it"
+  },
+  "siteBrokenFeedback": {
+    "message": "이 사이트에서 껐습니다. 어떤 문제가 있었나요? 짧게 알려 주시면 수정에 도움이 됩니다.",
+    "description": "Popup: feedback placeholder shown after turning the current site off because it looked broken"
   }
 }

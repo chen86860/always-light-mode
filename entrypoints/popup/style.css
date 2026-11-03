@@ -228,6 +228,45 @@ body {
   border-radius: 4px;
 }
 
+/* 入口图标：可一键关闭当前站点时显示警示图标，否则显示信封 */
+.feedback-toggle .icon-warn,
+.feedback.can-turn-off .feedback-toggle .icon-mail {
+  display: none;
+}
+
+.feedback.can-turn-off .feedback-toggle .icon-warn {
+  display: block;
+}
+
+/* 展开后的首要动作：关闭本站并刷新 */
+.turn-off-site {
+  margin-top: 4px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: oklch(0.995 0.004 90);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease-out), background 0.2s var(--ease-out);
+}
+
+.turn-off-site:hover {
+  border-color: var(--sun);
+  background: oklch(0.97 0.03 85);
+}
+
+.turn-off-site[hidden] {
+  display: none;
+}
+
+.turn-off-site:focus-visible {
+  outline: 2px solid var(--sun-deep);
+  outline-offset: 2px;
+}
+
 /* grid-template-rows 展开动画（不动画 height） */
 .feedback-body {
   display: grid;

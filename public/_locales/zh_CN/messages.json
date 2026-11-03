@@ -38,5 +38,17 @@
   "sponsor": {
     "message": "赞助",
     "description": "Popup: Stripe sponsor link"
+  },
+  "siteBroken": {
+    "message": "页面显示异常？",
+    "description": "Popup: footer entry that opens the problem panel when the current site can be turned off"
+  },
+  "turnOffSite": {
+    "message": "对此网站关闭",
+    "description": "Popup: button in the problem panel that turns the extension off for the current site and reloads it"
+  },
+  "siteBrokenFeedback": {
+    "message": "已对此网站关闭。哪里出了问题？简单描述一下，帮助我们修复。",
+    "description": "Popup: feedback placeholder shown after turning the current site off because it looked broken"
   }
 }

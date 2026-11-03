@@ -19,6 +19,10 @@ Click the toolbar icon to:
 • Skip any site that looks better as it is
 • Report a site that doesn't look right
 
+GOOD TO KNOW
+• It switches each site to that site's own light design. Sites that only come in dark, with no light version, stay as they are.
+• If a page looks broken, click the toolbar icon and choose "Page looks broken?". The extension turns off for that site only, and you can tell us which site so we can fix it.
+
 PRIVATE AND LIGHTWEIGHT
 No tracking, no data collection. Everything runs on your device, and it's only a few kilobytes.
 
@@ -41,6 +45,10 @@ Always Light Mode 让所有网站始终保持浅色——包括那些会自动�
 • 一键开启或关闭
 • 跳过原样更好看的网站
 • 反馈显示异常的网站
+
+使用须知
+• 插件会把网站切换到它自带的浅色设计。只有深色、没有浅色版的网站会保持原样。
+• 如果页面显示异常，点击工具栏图标，选择「页面显示异常？」，即可只对该网站关闭插件，并告诉我们是哪个网站，方便我们修复。
 
 隐私、轻量
 无跟踪、不收集任何数据。一切都在本地运行，体积只有几 KB。
@@ -65,6 +73,10 @@ Cliquez sur l'icône de la barre d'outils pour :
 • Ignorer les sites qui sont plus beaux tels quels
 • Signaler un site qui s'affiche mal
 
+BON À SAVOIR
+• L'extension passe chaque site sur son propre design clair. Les sites qui n'existent qu'en sombre, sans version claire, restent tels quels.
+• Si une page s'affiche mal, cliquez sur l'icône de la barre d'outils et choisissez « La page s'affiche mal ? ». L'extension se désactive uniquement sur ce site, et vous pouvez nous indiquer lequel pour que nous le corrigions.
+
 PRIVÉE ET LÉGÈRE
 Aucun suivi, aucune collecte de données. Tout fonctionne sur votre appareil, pour seulement quelques kilo-octets.
 
@@ -87,6 +99,10 @@ Klicken Sie auf das Symbol in der Symbolleiste, um:
 • die Erweiterung ein- oder auszuschalten
 • Websites auszulassen, die im Original besser aussehen
 • eine fehlerhaft dargestellte Website zu melden
+
+GUT ZU WISSEN
+• Die Erweiterung schaltet jede Website auf deren eigenes helles Design um. Websites, die es nur in Dunkel gibt und keine helle Version haben, bleiben unverändert.
+• Sieht eine Seite kaputt aus, klicken Sie auf das Symbol in der Symbolleiste und wählen Sie „Seite sieht kaputt aus?“. Die Erweiterung wird nur für diese Seite ausgeschaltet, und Sie können uns die Seite melden, damit wir sie reparieren.
 
 PRIVAT UND LEICHTGEWICHTIG
 Kein Tracking, keine Datenerfassung. Alles läuft auf Ihrem Gerät – mit nur wenigen Kilobyte.
@@ -111,6 +127,10 @@ Fai clic sull'icona nella barra degli strumenti per:
 • Escludere i siti che stanno meglio così come sono
 • Segnalare un sito che non si vede bene
 
+DA SAPERE
+• L'estensione porta ogni sito al suo design chiaro. I siti che esistono solo in versione scura, senza una versione chiara, restano come sono.
+• Se una pagina non si vede bene, fai clic sull'icona nella barra degli strumenti e scegli «La pagina non si vede bene?». L'estensione si disattiva solo su quel sito e puoi dirci quale, così possiamo sistemarlo.
+
 PRIVATA E LEGGERA
 Nessun tracciamento, nessuna raccolta di dati. Tutto funziona sul tuo dispositivo e occupa solo pochi kilobyte.
 
@@ -133,6 +153,10 @@ Always Light Mode は、すべてのウェブサイトをライトモードで�
 • 拡張機能のオン／オフ
 • そのままの方が見やすいサイトを除外
 • 表示がおかしいサイトを報告
+
+ご利用にあたって
+• 各サイトを、そのサイト自身のライトデザインに切り替えます。ダークデザインしかなく、ライト版がないサイトはそのままです。
+• ページの表示がおかしいときは、ツールバーのアイコンから「ページの表示がおかしい？」を選んでください。そのサイトだけオフになり、どのサイトか報告していただければ修正に役立てます。
 
 プライバシーと軽さ
 トラッキングもデータ収集も一切なし。すべて端末内で動作し、サイズはわずか数 KB です。
@@ -157,6 +181,10 @@ Always Light Mode는 모든 웹사이트를 라이트 모드로 유지합니다.
 • 원래 모습이 더 나은 사이트는 제외
 • 제대로 표시되지 않는 사이트 신고
 
+알아 두세요
+• 각 사이트를 해당 사이트의 자체 라이트 디자인으로 전환합니다. 어두운 디자인만 있고 라이트 버전이 없는 사이트는 그대로 유지됩니다.
+• 페이지가 깨져 보이면 툴바 아이콘을 클릭하고 "페이지가 깨져 보이나요?"를 선택하세요. 해당 사이트에서만 꺼지며, 어떤 사이트인지 알려 주시면 수정하겠습니다.
+
 개인정보 보호와 가벼움
 추적도, 데이터 수집도 없습니다. 모든 동작은 기기 안에서 이루어지며 크기는 단 몇 KB입니다.
 
@@ -179,6 +207,10 @@ Always Light Mode держит все сайты в светлом режиме 
 • Включить или выключить расширение
 • Пропустить сайты, которые лучше выглядят как есть
 • Сообщить о сайте, который отображается неправильно
+
+ПОЛЕЗНО ЗНАТЬ
+• Расширение переключает каждый сайт на его собственный светлый дизайн. Сайты, у которых есть только тёмный дизайн без светлой версии, остаются как есть.
+• Если страница выглядит сломанной, нажмите на значок на панели инструментов и выберите «Страница выглядит сломанной?». Расширение отключится только на этом сайте, и вы сможете сообщить нам, какой это сайт, чтобы мы всё исправили.
 
 ПРИВАТНО И ЛЕГКО
 Без отслеживания и сбора данных. Всё работает на вашем устройстве и весит всего несколько килобайт.
@@ -203,6 +235,10 @@ Haz clic en el icono de la barra de herramientas para:
 • Omitir los sitios que se ven mejor tal como están
 • Informar de un sitio que no se ve bien
 
+BUENO SABER
+• La extensión cambia cada sitio a su propio diseño claro. Los sitios que solo existen en oscuro, sin versión clara, se quedan como están.
+• Si una página se ve rota, haz clic en el icono de la barra de herramientas y elige «¿La página se ve rota?». La extensión se desactiva solo en ese sitio y puedes decirnos cuál es para que lo arreglemos.
+
 PRIVADA Y LIGERA
 Sin rastreo ni recopilación de datos. Todo funciona en tu dispositivo y ocupa solo unos pocos kilobytes.
 
@@ -225,6 +261,10 @@ Clique no ícone da barra de ferramentas para:
 • Ativar ou desativar a extensão
 • Pular sites que ficam melhor do jeito que são
 • Relatar um site que não está aparecendo bem
+
+BOM SABER
+• A extensão muda cada site para o próprio design claro dele. Sites que só existem no escuro, sem versão clara, continuam como estão.
+• Se uma página estiver com problemas, clique no ícone da barra de ferramentas e escolha "A página está com problemas?". A extensão é desativada só naquele site, e você pode nos dizer qual é para corrigirmos.
 
 PRIVADA E LEVE
 Sem rastreamento, sem coleta de dados. Tudo roda no seu dispositivo e ocupa só alguns kilobytes.

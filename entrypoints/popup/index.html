@@ -40,13 +40,17 @@
         <input type="checkbox" id="site-toggle" class="switch" />
       </label>
 
-      <!-- 邮件反馈：默认收起，点开展开输入区 -->
+      <!-- 问题反馈：默认收起；当前站点可关闭时入口为「页面显示异常？」，展开后先给一键关闭，再是邮件反馈 -->
       <section class="feedback">
         <div class="footer-bar">
           <button type="button" class="feedback-toggle" id="feedback-toggle">
-            <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+            <svg class="icon-mail" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
               <rect x="3" y="5.5" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8" />
               <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <svg class="icon-warn" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true">
+              <path d="M12 3.5 2.5 20h19L12 3.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
+              <path d="M12 10v4.5M12 17.2v.3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
             </svg>
             <span id="label-feedback">Email feedback</span>
           </button>
@@ -60,6 +64,7 @@
         </div>
         <div class="feedback-body" id="feedback-body">
           <div class="feedback-inner">
+            <button type="button" class="turn-off-site" id="turn-off-site" hidden>Turn off for this site</button>
             <textarea id="feedback-text" rows="3" placeholder="Describe the problem…"></textarea>
             <button type="button" class="feedback-send" id="feedback-send" disabled>Send</button>
           </div>

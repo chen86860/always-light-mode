@@ -38,5 +38,17 @@
   "sponsor": {
     "message": "Sostieni",
     "description": "Popup: Stripe sponsor link"
+  },
+  "siteBroken": {
+    "message": "La pagina non si vede bene?",
+    "description": "Popup: footer entry that opens the problem panel when the current site can be turned off"
+  },
+  "turnOffSite": {
+    "message": "Disattiva su questo sito",
+    "description": "Popup: button in the problem panel that turns the extension off for the current site and reloads it"
+  },
+  "siteBrokenFeedback": {
+    "message": "Disattivato su questo sito. Cosa non ha funzionato? Una breve nota ci aiuta a risolvere.",
+    "description": "Popup: feedback placeholder shown after turning the current site off because it looked broken"
   }
 }

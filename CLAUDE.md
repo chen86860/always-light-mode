@@ -14,6 +14,7 @@ pnpm build:firefox       # 构建到 .output/firefox-mv2
 pnpm test:e2e            # 先 build 再跑全部 Playwright 用例
 pnpm exec playwright test force-light            # 只跑单个 spec（按文件名匹配）
 pnpm exec playwright test -g "排除当前站点"         # 按测试名过滤
+pnpm test:smoke          # 真实站点冒烟测试（外网，开/关插件对比页面文本），每天由 smoke.yml 定时跑
 ```
 
 e2e 测试加载的是构建产物，改完源码后要先 `pnpm build` 再单跑 spec，否则测的还是旧代码。首次运行需要 `pnpm exec playwright install chromium`。

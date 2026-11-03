@@ -2,7 +2,7 @@
   "name": "always-light-mode",
   "description": "Always light mode",
   "private": true,
-  "version": "1.6.1",
+  "version": "1.7.0",
   "type": "module",
   "packageManager": "pnpm@11.10.0",
   "scripts": {
@@ -14,6 +14,7 @@
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
     "test:e2e": "wxt build && playwright test",
+    "test:smoke": "wxt build && playwright test -c playwright.smoke.config.ts",
     "store:assets": "node scripts/store-assets/generate.mjs",
     "token:chrome": "node scripts/get-chrome-refresh-token.mjs",
     "postinstall": "wxt prepare"

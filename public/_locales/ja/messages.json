@@ -38,5 +38,17 @@
   "sponsor": {
     "message": "支援する",
     "description": "Popup: Stripe sponsor link"
+  },
+  "siteBroken": {
+    "message": "ページの表示がおかしい？",
+    "description": "Popup: footer entry that opens the problem panel when the current site can be turned off"
+  },
+  "turnOffSite": {
+    "message": "このサイトでオフにする",
+    "description": "Popup: button in the problem panel that turns the extension off for the current site and reloads it"
+  },
+  "siteBrokenFeedback": {
+    "message": "このサイトでオフにしました。何が起きたか一言教えてください。修正に役立てます。",
+    "description": "Popup: feedback placeholder shown after turning the current site off because it looked broken"
   }
 }

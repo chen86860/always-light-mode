@@ -1,0 +1,38 @@
+name: Smoke (real sites)
+
+# 每天在热门真实站点上对比「开/关插件」的页面内容，提前发现插件把网站弄坏（白屏、崩溃）。
+# 依赖外网，结果受站点改版影响，因此不进常规 CI；失败时 GitHub 会邮件通知。
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Smoke test real sites
+        run: pnpm test:smoke
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: smoke-report
+          path: playwright-report/
+          retention-days: 14

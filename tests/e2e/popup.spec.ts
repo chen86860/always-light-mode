@@ -5,10 +5,14 @@ import type { Page } from '@playwright/test';
 const openPopup = async (page: Page, extensionId: string) => {
   await page.addInitScript(() => {
     const fake = { id: 999, url: 'https://github.com/', active: true };
-    const w = window as unknown as { __mailto: string | null };
+    const w = window as unknown as { __mailto: string | null; __reloaded: number[] };
     w.__mailto = null;
+    w.__reloaded = [];
     chrome.tabs.query = () => Promise.resolve([fake] as never);
-    chrome.tabs.reload = (() => Promise.resolve()) as never;
+    chrome.tabs.reload = ((id: number) => {
+      w.__reloaded.push(id);
+      return Promise.resolve();
+    }) as never;
     chrome.tabs.sendMessage = (() => Promise.reject(new Error('no receiver'))) as never;
     chrome.tabs.create = ((opts: { url: string }) => {
       w.__mailto = opts.url;
@@ -80,4 +84,24 @@ test('邮件反馈：主题带插件名、版本与当前网站，正文为用�
   expect(decoded).toContain('mailto:support@emmmm.dev');
   expect(decoded).toMatch(/subject=\[Always Light Mode v[\d.]+\] Feedback - https:\/\/github\.com\//);
   expect(decoded).toContain('body=某站点仍是深色');
+});
+
+test('页面异常入口：底部展开后一键关闭本站、强制刷新并聚焦反馈', async ({ context, serviceWorker, extensionId }) => {
+  const page = await context.newPage();
+  await openPopup(page, extensionId);
+
+  // 站点可关闭时，底部入口是「页面显示异常？」而不是「邮件反馈」
+  expect(await page.textContent('#label-feedback')).toBe('Page looks broken?');
+  expect(await page.evaluate(() => document.querySelector('.feedback')?.classList.contains('open'))).toBe(false);
+  await page.click('#feedback-toggle');
+  await page.click('#turn-off-site');
+
+  await expect
+    .poll(() => serviceWorker.evaluate(() => chrome.storage.sync.get('disabledSites')))
+    .toMatchObject({ disabledSites: ['github.com'] });
+  expect(await page.evaluate(() => (window as unknown as { __reloaded: number[] }).__reloaded)).toEqual([999]);
+  expect(await readState(page)).toMatchObject({ siteChecked: false });
+  expect(await page.isVisible('#turn-off-site')).toBe(false);
+  expect(await page.textContent('#label-feedback')).toBe('Email feedback');
+  expect(await page.evaluate(() => document.activeElement?.id)).toBe('feedback-text');
 });
