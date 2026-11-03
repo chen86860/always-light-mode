@@ -1,0 +1,63 @@
+{
+  "header": {
+    "download": "立即下载"
+  },
+  "hero": {
+    "title": "始终保持亮色模式",
+    "subtitle": "无论系统设置如何",
+    "description": "一款简单而强大的浏览器插件，让您的网页浏览体验始终保持在舒适的亮色模式下，即使您的系统设置为暗色模式。",
+    "cta": {
+      "download": "前往 Chrome 商店下载",
+      "learnMore": "了解更多"
+    }
+  },
+  "features": {
+    "title": "为什么选择 Always Light Mode？",
+    "description": "我们的插件提供了简单而有效的解决方案，让您在任何情况下都能享受到亮色模式的阅读体验",
+    "cards": {
+      "override": {
+        "title": "覆盖系统设置",
+        "description": "无论您的系统设置为何种模式，网页始终保持亮色显示，确保一致的浏览体验"
+      },
+      "eyeStrain": {
+        "title": "减轻眼睛疲劳",
+        "description": "亮色模式在许多情况下更适合阅读，减少眼睛疲劳，特别是在明亮环境中"
+      },
+      "oneClick": {
+        "title": "一键启用",
+        "description": "安装后立即生效，无需复杂设置，简单易用"
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "工作原理",
+    "description": "Always Light Mode 通过智能覆盖网站的暗色模式设置，确保您始终获得亮色浏览体验",
+    "steps": {
+      "install": {
+        "title": "安装插件",
+        "description": "从 Chrome 网上应用店下载并安装 Always Light Mode 插件"
+      },
+      "activate": {
+        "title": "自动激活",
+        "description": "插件会自动检测网站的颜色模式并应用亮色模式覆盖"
+      },
+      "enjoy": {
+        "title": "享受亮色体验",
+        "description": "立即享受所有网站的亮色模式，无需任何额外设置"
+      }
+    },
+    "darkMode": "暗色模式",
+    "withExtension": "使用插件后"
+  },
+  "cta": {
+    "title": "立即体验 Always Light Mode",
+    "description": "加入成千上万的用户，享受更舒适的网页浏览体验。免费下载，即刻生效！",
+    "button": "前往 Chrome 商店下载"
+  },
+  "footer": {
+    "rights": "保留所有权利。"
+  },
+  "languageSwitcher": {
+    "label": "语言"
+  }
+}

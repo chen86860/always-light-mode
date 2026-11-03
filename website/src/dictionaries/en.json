@@ -1,0 +1,63 @@
+{
+  "header": {
+    "download": "Download Now"
+  },
+  "hero": {
+    "title": "Always Stay in Light Mode",
+    "subtitle": "No matter what your system settings are",
+    "description": "A simple yet powerful browser extension that keeps your web browsing experience in comfortable light mode, even if your system is set to dark mode.",
+    "cta": {
+      "download": "Download from Chrome Store",
+      "learnMore": "Learn More"
+    }
+  },
+  "features": {
+    "title": "Why Choose Always Light Mode?",
+    "description": "Our extension provides a simple and effective solution for enjoying a light mode reading experience in any situation",
+    "cards": {
+      "override": {
+        "title": "Override System Settings",
+        "description": "No matter what mode your system is set to, web pages always remain in light mode, ensuring a consistent browsing experience"
+      },
+      "eyeStrain": {
+        "title": "Reduce Eye Strain",
+        "description": "Light mode is often better for reading in many situations, reducing eye fatigue, especially in bright environments"
+      },
+      "oneClick": {
+        "title": "One-Click Activation",
+        "description": "Takes effect immediately after installation, no complex settings, simple and easy to use"
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "How It Works",
+    "description": "Always Light Mode intelligently overrides website dark mode settings to ensure you always get a light browsing experience",
+    "steps": {
+      "install": {
+        "title": "Install the Extension",
+        "description": "Download and install the Always Light Mode extension from the Chrome Web Store"
+      },
+      "activate": {
+        "title": "Automatic Activation",
+        "description": "The extension automatically detects website color modes and applies light mode overrides"
+      },
+      "enjoy": {
+        "title": "Enjoy Light Experience",
+        "description": "Immediately enjoy light mode on all websites without any additional settings"
+      }
+    },
+    "darkMode": "Dark Mode",
+    "withExtension": "With Extension"
+  },
+  "cta": {
+    "title": "Try Always Light Mode Now",
+    "description": "Join thousands of users enjoying a more comfortable web browsing experience. Download for free, takes effect immediately!",
+    "button": "Download from Chrome Store"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  },
+  "languageSwitcher": {
+    "label": "Language"
+  }
+}

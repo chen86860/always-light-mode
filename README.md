@@ -38,6 +38,10 @@ Click the toolbar icon to open the control panel:
 
 Settings sync through your browser account (`storage.sync`). No tracking, no analytics, no data collection.
 
+## Website
+
+The website lives in [`website/`](website/README.md), using React 19, TanStack Start, Vite, Tailwind CSS v4 and Cloudflare Workers. Run its commands from that directory; it has an independent pnpm lockfile. The feedback collection proposal is documented in [`website/docs/feedback-plan.md`](website/docs/feedback-plan.md).
+
 ## Development
 
 ```sh
