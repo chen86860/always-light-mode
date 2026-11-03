@@ -1,34 +1,55 @@
 import { useState } from 'react';
-import { ArrowUpRight, Check, LockKeyhole, Sun } from 'lucide-react';
+import { Check, CursorClick, LockSimple, Moon, Sun } from '@phosphor-icons/react';
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
 
+function ReadingPage() {
+  return (
+    <div className="reading-page">
+      <div className="reading-masthead"><span>The everyday</span><span>Notes on a slower web</span></div>
+      <div className="reading-story">
+        <div className="reading-art" aria-hidden="true"><span className="reading-disc" /><span className="reading-horizon" /></div>
+        <div className="reading-copy">
+          <p className="reading-category">A moment to yourself</p>
+          <h3>A little room<br />to focus.</h3>
+          <p>Open a favorite page. Find something worth reading. Stay a little longer.</p>
+          <div className="reading-meta"><span>Daily reading</span><span>3 min read</span></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function LightModePreview() {
   const [enabled, setEnabled] = useState(true);
+
   return (
-    <div className="preview-stage">
-      <div className="preview-caption"><span>Same website. Your preference.</span><span className="text-muted-foreground">Interactive preview</span></div>
-      <div className={cn('preview-browser', !enabled && 'preview-browser-dark')} id="theme-preview">
+    <figure className="preview-stage" aria-label="Interactive website appearance comparison">
+      <div className="preview-browser">
         <div className="preview-toolbar">
-          <span className="flex gap-1" aria-hidden="true"><i /><i /><i /></span>
-          <span className="preview-address"><LockKeyhole className="size-3" aria-hidden="true" /> your.favorite.website</span>
-          <span className="size-4" aria-hidden="true" />
+          <span className="preview-window-dots" aria-hidden="true"><i /><i /><i /></span>
+          <span className="preview-address"><LockSimple weight="regular" aria-hidden="true" /> your.favorite.website</span>
+          <span className="preview-demo-label">Live demo</span>
         </div>
-        <div className="preview-content">
-          <div className="flex items-center justify-between text-sm font-medium"><span>Daily reading</span><ArrowUpRight className="size-4" aria-hidden="true" /></div>
-          <div className="preview-art" aria-hidden="true"><span className="preview-orbit" /><Sun strokeWidth={1} className="size-16" /></div>
-          <p className="text-sm preview-muted">A little room to focus</p>
-          <h2 className="mt-2 max-w-xs text-3xl font-semibold tracking-tight">Your familiar places.<br />In a lighter mood.</h2>
-          <p className="preview-muted mt-4 max-w-sm text-base">The pages you come back to, in the theme you actually want to use.</p>
-          <div className="preview-lines" aria-hidden="true"><span /><span /></div>
+        <div className="preview-comparison">
+          <section className="preview-pane preview-pane-dark" aria-label="Without the extension">
+            <div className="preview-pane-label"><span><Moon aria-hidden="true" /> Without the extension</span><span>System: dark</span></div>
+            <ReadingPage />
+          </section>
+          <section className={cn('preview-pane', !enabled && 'preview-pane-dark')} id="theme-preview" aria-label="With Always Light Mode">
+            <div className="preview-pane-label"><span><Sun aria-hidden="true" /> With Always Light Mode</span><span aria-live="polite">{enabled ? 'Light, as you like it' : 'System: dark'}</span></div>
+            <ReadingPage />
+          </section>
+        </div>
+        <div className="preview-control">
+          <div className="preview-control-copy"><CursorClick aria-hidden="true" /><p>Same website. <strong>Your choice.</strong></p></div>
+          <div className="preview-switch-group">
+            <label htmlFor="preview-toggle">Light mode <span aria-live="polite">{enabled ? 'on' : 'off'}</span></label>
+            <Switch id="preview-toggle" checked={enabled} onCheckedChange={setEnabled} aria-controls="theme-preview" />
+          </div>
         </div>
       </div>
-      <div className="preview-control">
-        <span className="preview-control-icon"><Sun className="size-6" strokeWidth={1.5} aria-hidden="true" /></span>
-        <div className="flex-1"><label className="cursor-pointer text-base font-semibold" htmlFor="preview-toggle">Always Light Mode</label><p className="text-sm text-muted-foreground" aria-live="polite">{enabled ? 'Light mode is on' : 'Following the dark theme'}</p></div>
-        <Switch id="preview-toggle" checked={enabled} onCheckedChange={setEnabled} aria-controls="theme-preview" />
-      </div>
-      <p className="preview-instruction"><Check className="size-4" aria-hidden="true" /> Try the switch. This only changes the preview.</p>
-    </div>
+      <figcaption className="preview-caption"><span><Check aria-hidden="true" /> Your system theme stays untouched.</span><span>Try the switch. It only changes this demo.</span></figcaption>
+    </figure>
   );
 }
