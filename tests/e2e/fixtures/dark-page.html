@@ -65,6 +65,17 @@
         storedDarkModeBool: localStorage.getItem('darkMode'),
         storedJsonMode: localStorage.getItem('app-color-mode'),
         storedNonTheme: localStorage.getItem('nickname'),
+        // Stripe 式的 Storage 原型补丁：constructor.prototype 可用、this 是 localStorage 本身
+        storageProtoPatch: (() => {
+          const proto = localStorage.constructor.prototype;
+          const desc = Object.getOwnPropertyDescriptor(proto, 'setItem');
+          let sawSelf = false;
+          Object.defineProperty(proto, 'setItem', { ...desc, value(...a) { desc.value.call(this, ...a); if (this === localStorage) sawSelf = true; } });
+          localStorage.setItem('alm-probe', '1');
+          Object.defineProperty(proto, 'setItem', desc);
+          Storage.prototype.removeItem.call(localStorage, 'alm-probe');
+          return sawSelf && localStorage.getItem('alm-probe') === null;
+        })(),
         mediaRuleColor: cs.color,
         compoundMediaBg: cs.backgroundColor,
         layerNestedDecoration: cs.textDecorationColor,

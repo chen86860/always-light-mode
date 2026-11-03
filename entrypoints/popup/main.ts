@@ -1,5 +1,5 @@
 import { lightModeEnabledStorage, disabledSitesStorage } from '../utils/storage';
-import { syncContentScripts, updateIcon, getHostname } from '../utils/registration';
+import { syncContentScripts, updateIcon, getHostname, isBuiltinExcluded } from '../utils/registration';
 
 const $ = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 
@@ -87,7 +87,9 @@ const main = async () => {
   const isEnabled = await lightModeEnabledStorage.getValue();
   const disabledSites = await disabledSitesStorage.getValue();
 
-  let excluded = host ? disabledSites.includes(host) : false;
+  // 内置黑名单站点固定为排除，站点开关不可操作
+  const builtinExcluded = host ? isBuiltinExcluded(host) : false;
+  let excluded = host ? builtinExcluded || disabledSites.includes(host) : false;
   globalToggle.checked = isEnabled;
 
   // 站点开关反映实际生效状态：总开关关闭时它也显示为关闭
@@ -102,6 +104,7 @@ const main = async () => {
 
   if (host) {
     $('site-host').textContent = host;
+    if (builtinExcluded) siteRow.classList.add('unavailable');
   } else {
     $('site-host').textContent = t('unsupportedPage');
     siteLabel.textContent = '';

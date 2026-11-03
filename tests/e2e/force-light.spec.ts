@@ -28,6 +28,8 @@ test('在系统深色偏好下，暗色页面的所有暗色手段都被强制�
   expect(results.storedDarkModeBool).toBe('false');
   expect(results.storedJsonMode).toBe('{"mode":"light"}');
   expect(results.storedNonTheme).toBe('darkwing');
+  // Proxy 不能破坏页面对 Storage 原型的打补丁与原生方法调用（Stripe 白屏回归）
+  expect(results.storageProtoPatch).toBe(true);
 
   // 各层暗色 CSS 均不生效（绿色为浅色态样式）
   expect(results.mediaRuleColor).toBe(GREEN);

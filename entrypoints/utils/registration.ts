@@ -2,6 +2,12 @@ import { lightModeEnabledStorage, disabledSitesStorage } from './storage';
 
 const SCRIPT_IDS = ['alm-style', 'alm-page-patch'];
 
+/** 内置黑名单：本身没有深色版、注入只有风险没有收益的站点（含其所有子域） */
+const BUILTIN_EXCLUDED_DOMAINS = ['stripe.com'];
+
+export const isBuiltinExcluded = (host: string) =>
+  BUILTIN_EXCLUDED_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`));
+
 /**
  * 按当前开关状态同步内容脚本注册。
  * 动态注册（而非 manifest 静态声明）让开关和站点排除在页面加载前就已生效，
@@ -19,7 +25,10 @@ export const syncContentScripts = async () => {
   const disabledSites = await disabledSitesStorage.getValue();
   const common = {
     matches: ['<all_urls>'],
-    excludeMatches: disabledSites.map((host: string) => `*://${host}/*`),
+    excludeMatches: [
+      ...BUILTIN_EXCLUDED_DOMAINS.map((domain) => `*://*.${domain}/*`),
+      ...disabledSites.map((host: string) => `*://${host}/*`),
+    ],
     runAt: 'document_start' as const,
     allFrames: true,
     persistAcrossSessions: true,

@@ -94,24 +94,36 @@ export default defineContentScript({
     };
 
     try {
-      const nativeGetItem = Storage.prototype.getItem;
-      Storage.prototype.getItem = function (key: string) {
-        return rewriteStoredTheme(String(key), nativeGetItem.call(this, key)) as string | null;
-      };
-
       // localStorage.theme 这类属性式读取不经过 getItem，包一层 Proxy 拦截
       const nativeLocalStorage = window.localStorage;
       const proxy = new Proxy(nativeLocalStorage, {
         get(target, prop) {
           const value = Reflect.get(target, prop);
-          // Storage 方法直接调用会 Illegal invocation，绑回原对象（getItem 已在原型上打过补丁）
-          if (typeof value === 'function') return value.bind(target);
           if (typeof prop === 'string' && typeof value === 'string') {
             return rewriteStoredTheme(prop, value);
           }
+          // 函数原样返回、不做 bind：bind 会让 localStorage.constructor 丢掉 .prototype，
+          // 页面里 `this === localStorage` 的判断也会失效（Stripe 启动时依赖两者，否则白屏）
           return value;
         },
       });
+
+      // 原生 Storage 方法要求 this 是真正的 Storage，以 Proxy 为 this 调用时还原成原对象
+      const unwrap = (storage: Storage) => (storage === proxy ? nativeLocalStorage : storage);
+      for (const method of ['setItem', 'removeItem', 'clear', 'key'] as const) {
+        const native = Storage.prototype[method] as (...args: unknown[]) => unknown;
+        (Storage.prototype as unknown as Record<string, unknown>)[method] = function (
+          this: Storage,
+          ...args: unknown[]
+        ) {
+          return native.apply(unwrap(this), args);
+        };
+      }
+      const nativeGetItem = Storage.prototype.getItem;
+      Storage.prototype.getItem = function (key: string) {
+        return rewriteStoredTheme(String(key), nativeGetItem.call(unwrap(this), key)) as string | null;
+      };
+
       Object.defineProperty(window, 'localStorage', {
         get: () => proxy,
         configurable: true,
