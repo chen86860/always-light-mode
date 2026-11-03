@@ -1,5 +1,50 @@
 # Changelog
 
+## 1.6.1 (2026-11-03)
+
+### Fixed
+
+- **Stripe Dashboard no longer loads blank.** The `localStorage` Proxy bound every function
+  it returned, including `localStorage.constructor`, and a bound `Storage` has no
+  `.prototype`. Stripe patches `localStorage.constructor.prototype.setItem` during startup, so
+  it threw a `TypeError` (swallowed by its own Sentry) and never rendered. The Proxy now
+  returns functions unbound. Native `Storage.prototype` methods (`getItem`, `setItem`,
+  `removeItem`, `clear`, `key`) map the Proxy back to the real `localStorage` when it is the
+  receiver. Pages that patch the Storage prototype, compare `this === localStorage`, or call
+  `Storage.prototype.setItem.call(localStorage, …)` now work as they do without the
+  extension.
+
+### Added
+
+- **Built-in exclusion list.** Sites with no dark mode of their own, where injection has only
+  downside, are never injected. It currently holds `stripe.com` and all its subdomains. The
+  popup shows these sites as excluded, with the site toggle disabled.
+
+## 1.6.0 (2026-10-15)
+
+### Added
+
+- **OpenCode V2 docs forced to light** ([#1](https://github.com/chen86860/always-light-mode/issues/1)).
+  `opencode.ai/v2/docs` ships a dark-only theme: it hard-codes `color-scheme: dark` and dark
+  variables on `:root`, and has no light theme to switch to. The generic logic has nothing to
+  target there, so the extension now supplies a light variable set, a light logo and light
+  callout colors. The rules are scoped with `:root:has(link[href^="/v2/_astro/"])`, so they
+  follow Astro's client-side navigation between V1 and V2 without a reload. V1 docs
+  (Starlight, `data-theme`) were already covered and are unaffected.
+
+## 1.5.0 (2026-10-09)
+
+### Added
+
+- **Apple Music fix.** `music.apple.com` picks light or dark per page from the album artwork,
+  independent of `prefers-color-scheme`. On dark artwork it adds `is-dark-theme` to
+  `.app-container` and `--dark-layout` to the detail header, and writes the artwork color
+  into inline background variables, none of which sit on `html`/`body`. The extension now
+  swaps those classes to their light counterparts and resets the artwork-derived background
+  variables. It re-applies after SPA navigation and fully reverts when disabled.
+- **Sponsor link** in the popup footer, next to Email feedback (localized in all supported
+  languages).
+
 ## 1.4.1 (2026-08-17)
 
 ### Fixed
