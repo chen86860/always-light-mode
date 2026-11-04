@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { ArrowDown, ArrowUpRight, Check, Sun } from '@phosphor-icons/react';
+import { ArrowUpRightIcon, PlusIcon } from '@phosphor-icons/react';
 import { BrandMark } from '@/components/brand-mark';
-import { GithubMark } from '@/components/github-mark';
+import { ChromeMark } from '@/components/chrome-mark';
 import { LightModePreview } from '@/components/light-mode-preview';
-import { TaglineReveal } from '@/components/tagline-reveal';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { Reveal } from '@/components/reveal';
 
 const CHROME_STORE_URL = 'https://chromewebstore.google.com/detail/always-light-mode/njnammmpdodmfkodnfpammnpdcbhnlcm';
@@ -13,25 +13,51 @@ const GITHUB_URL = 'https://github.com/chen86860/always-light-mode';
 
 export const Route = createFileRoute('/')({ component: LandingPage });
 
+const features = [
+  { title: 'Beats built-in dark themes', body: 'Sites that switch to dark on their own, through media queries, theme classes or saved settings, still load light.' },
+  { title: 'Off for one site, instantly', body: 'Prefer a site in dark? Switch it off there and the page changes in place. The choice is remembered.' },
+  { title: 'Open source, no tracking', body: 'No analytics and no account. Every line that runs in your browser is on GitHub.', link: { href: GITHUB_URL, label: 'Read the source' } },
+];
+
+const steps = [
+  { title: 'Add it to Chrome', body: 'Install free from the Chrome Web Store. It works right away.' },
+  { title: 'Pin it to the toolbar', body: 'Keep the switch one click away.' },
+  { title: 'Choose what stays light', body: 'Use the main switch for every site, or turn it off for the current one.' },
+];
+
 const questions = [
   { question: 'Will it change my system theme?', answer: 'No. Keep your computer in dark mode. The extension changes how websites display inside your browser.' },
   { question: 'Can I turn it off for one website?', answer: 'Yes. Open the extension and use the site switch. Your preference is saved, so the site stays excluded next time.' },
   { question: 'Does it work on every website?', answer: 'It works with many common dark themes, but some sites only have a dark design. Browser settings pages and the Chrome Web Store cannot be changed by extensions.' },
-  { question: 'Which browsers can I use?', answer: 'Install from the Chrome Web Store on Chrome, Edge, Brave, Arc and other compatible Chromium browsers. Firefox builds are available from the source project.' },
+  { question: 'Which browsers can I use?', answer: 'Install from the Chrome Web Store on Chrome, Edge, Brave, Arc and other compatible Chromium browsers. Firefox users can build it from the source project.', link: { href: `${GITHUB_URL}#development`, label: 'Firefox build steps' } },
   { question: 'Does it track my browsing?', answer: 'The extension does not include analytics or track your browsing. Preferences use your browser’s sync storage. Feedback is shared only when you choose to send it by email.', id: 'privacy' },
   { question: 'What if a page looks wrong?', answer: 'Open the extension and turn it off for that site. You can also use the feedback option to tell us which website needs attention.' },
 ];
 
 const navigation = [
-  { id: 'features', label: 'Why light?' },
+  { id: 'features', label: 'Features' },
   { id: 'how-it-works', label: 'How it works' },
   { id: 'questions', label: 'Questions' },
 ];
 
-function InstallButton({ header = false }: { header?: boolean }) {
-  return <Button size={header ? 'sm' : 'lg'} nativeButton={false} render={<a href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer" />}>
-    {header ? <><span className="sm:hidden">Install</span><span className="hidden sm:inline">Add to Chrome</span></> : 'Add to Chrome'}<ArrowUpRight data-icon="inline-end" aria-hidden="true" />
-  </Button>;
+// 首屏右上角缓慢旋转的光芒，纯装饰
+function SunBurst() {
+  return (
+    <svg className="sun-burst" viewBox="0 0 400 400" aria-hidden="true">
+      <g className="sun-rays">
+        {Array.from({ length: 24 }, (_, index) => <rect key={index} x="197" y="8" width="6" height={index % 2 ? 44 : 72} rx="3" transform={`rotate(${index * 15} 200 200)`} />)}
+      </g>
+      <circle className="sun-core" cx="200" cy="200" r="96" />
+    </svg>
+  );
+}
+
+function InstallButton({ size = 'lg' }: { size?: 'sm' | 'lg' }) {
+  return (
+    <Button size={size} className={cn('rounded-full bg-brand-strong px-5 text-white hover:bg-brand-strong/90 [&_svg]:size-4', size === 'sm' && 'min-h-10 px-4 has-data-[icon=inline-start]:pl-3.5')} nativeButton={false} render={<a href={CHROME_STORE_URL} target="_blank" rel="noopener noreferrer" />}>
+      <ChromeMark data-icon="inline-start" />Add to Chrome
+    </Button>
+  );
 }
 
 function LandingPage() {
@@ -56,76 +82,70 @@ function LandingPage() {
           <nav aria-label="Main navigation" className="main-navigation">
             {navigation.map(({ id, label }) => <a key={id} href={`#${id}`} className="nav-link" aria-current={activeSection === id ? 'location' : undefined}>{label}</a>)}
           </nav>
-          <InstallButton header />
+          <InstallButton size="sm" />
         </div>
       </header>
 
       <main id="main-content" tabIndex={-1}>
-        <section className="shell hero-section" id="intro" aria-labelledby="hero-title">
-          <div className="hero-intro">
-            <h1 className="hero-title" id="hero-title">Dark system.<br />Light websites.</h1>
-            <div className="hero-copy">
-              <p className="hero-description">Stay on the bright side.</p>
-              <p className="hero-detail">Keep your favorite websites in light mode, even when your system goes dark. One extension. Your preference.</p>
-              <div className="hero-actions"><InstallButton /><span>Free. No account needed.</span></div>
-            </div>
-          </div>
-          <LightModePreview />
-          <div className="compatibility-line"><p>At home in your browser.</p><p className="browser-list"><span>Chrome</span><span>Edge</span><span>Brave</span><span>Arc</span></p><a href="#how-it-works" className="text-link">Take a closer look<ArrowDown aria-hidden="true" /></a></div>
-        </section>
-
-        <section className="shell section-space benefits-section" id="features" aria-labelledby="features-title">
-          <div className="benefits-intro">
-            <h2 id="features-title" className="section-title">Your preference.<br />Not your system’s.</h2>
-            <p>Light pages shouldn’t mean changing everything else. Keep the look you like, with room for exceptions.</p>
-            <div className="appearance-note" aria-hidden="true"><Sun weight="light" /><span>A brighter default.<br /><strong>Nothing else to adjust.</strong></span></div>
-          </div>
-          <div className="benefits-list">
-            <article><h3>Leave your desktop alone.</h3><p>Keep your system in dark mode. The extension asks websites for their light appearance and overrides common dark themes.</p></article>
-            <article><h3>Make room for exceptions.</h3><p>Like a particular site dark? Turn the extension off just there. Your choice is remembered the next time you visit.</p></article>
-            <article><h3>Set it. Then forget it.</h3><p>Light mode starts working after installation. No account, setup wizard or theme to configure.</p></article>
+        <section className="hero-band" id="intro" aria-labelledby="hero-title">
+          <SunBurst />
+          <div className="shell relative">
+            <h1 className="hero-title" id="hero-title">Every website.<br />Always <span className="hero-highlight">light.</span></h1>
+            <p className="hero-detail">A free browser extension that keeps every site in light mode, even when the site or your system prefers dark.</p>
+            <div className="hero-actions"><InstallButton /><span>Works on Chrome, Edge, Brave and Arc. Free, no account.</span></div>
+            <LightModePreview />
           </div>
         </section>
 
-        <section className="tagline-section" aria-label="A lighter web">
-          <div className="shell tagline-layout"><Sun className="tagline-sun" weight="thin" aria-hidden="true" /><TaglineReveal /><p>A small extension.<br />A difference you can see.</p></div>
+        <section className="shell section-space" id="features" aria-labelledby="features-title">
+          <h2 id="features-title" className="section-title">Light pages. Nothing else changes.</h2>
+          <div className="feature-row">
+            {features.map(({ title, body, link }) => (
+              <article key={title}>
+                <h3>{title}</h3>
+                <p>{body}</p>
+                {link && <a className="text-link mt-4" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRightIcon aria-hidden="true" /></a>}
+              </article>
+            ))}
+          </div>
         </section>
 
         <section className="shell section-space control-layout" id="how-it-works" aria-labelledby="controls-title">
           <div>
-            <h2 id="controls-title" className="section-title">A little control.<br />A lighter everyday.</h2>
-            <p className="section-description">Everything you need, in one small panel.</p>
+            <h2 id="controls-title" className="section-title">Set up in a minute.</h2>
             <ol className="steps-list">
-              <li><span>1</span><div><h3>Add it to your browser</h3><p>Install the free extension from the Chrome Web Store.</p></div></li>
-              <li><span>2</span><div><h3>Keep it within reach</h3><p>Pin the extension to your toolbar for easy access.</p></div></li>
-              <li><span>3</span><div><h3>Choose what stays light</h3><p>Use the main switch for all sites, or make an exception for the current one.</p></div></li>
+              {steps.map(({ title, body }, index) => <li key={title}><span>{index + 1}</span><div><h3>{title}</h3><p>{body}</p></div></li>)}
             </ol>
           </div>
-          <Reveal className="controls-figure">
-            <figure>
-              <div className="controls-screenshot"><img src="/extension-controls.webp" alt="Extension panel with the Force light mode switch, a separate github.com switch and Email feedback" width={520} height={380} loading="lazy" /></div>
-              <figcaption>Your whole setup. Not another settings page.</figcaption>
-            </figure>
+          <Reveal className="controls-screenshot">
+            <img src="/extension-controls.webp" alt="Extension panel with the Force light mode switch, a separate github.com switch and Email feedback" width={520} height={380} loading="lazy" />
           </Reveal>
         </section>
 
-        <section className="shell source-section" aria-labelledby="source-title">
-          <GithubMark className="source-mark" />
-          <div><h2 id="source-title">Nothing hidden. Including the code.</h2><p>Free to use, open source, and no browsing analytics. See exactly what runs in your browser.</p></div>
-          <a className="text-link" href={GITHUB_URL} target="_blank" rel="noopener noreferrer">Explore on GitHub<ArrowUpRight aria-hidden="true" /></a>
-        </section>
-
         <section className="shell section-space questions-layout" id="questions" aria-labelledby="questions-title">
-          <div><h2 id="questions-title" className="section-title">Good questions.<br />Clear answers.</h2><p className="section-description">Something else on your mind?</p><a href="mailto:support@emmmm.dev" className="text-link mt-4">Get in touch<ArrowUpRight aria-hidden="true" /></a></div>
-          <div className="questions-list">{questions.map(({ question, answer, id }) => <article key={question} id={id}><h3>{question}</h3><p>{answer}</p></article>)}</div>
+          <div>
+            <h2 id="questions-title" className="section-title">Questions</h2>
+            <a href="mailto:support@emmmm.dev" className="text-link mt-4">Ask us something else<ArrowUpRightIcon aria-hidden="true" /></a>
+          </div>
+          <div className="questions-list">
+            {questions.map(({ question, answer, id, link }) => (
+              <details key={question} id={id}>
+                <summary><h3>{question}</h3><PlusIcon aria-hidden="true" /></summary>
+                <p>{answer}{link && <> <a className="underline underline-offset-4" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a></>}</p>
+              </details>
+            ))}
+          </div>
         </section>
 
-        <section className="shell closing-section" aria-labelledby="closing-title">
-          <div className="closing-panel"><Sun weight="light" className="closing-sun" aria-hidden="true" /><div><h2 id="closing-title">Make yourself<br />at light.</h2><p>Your browser. A brighter default.</p></div><div className="closing-action"><InstallButton /><p><Check aria-hidden="true" /> Free, open source, no tracking</p></div></div>
+        <section className="closing-band" aria-labelledby="closing-title">
+          <div className="shell closing-layout">
+            <h2 id="closing-title">Bright pages,<br />every time you browse.</h2>
+            <InstallButton />
+          </div>
         </section>
       </main>
 
-      <footer className="shell site-footer"><BrandMark /><nav aria-label="Footer navigation"><a href="#privacy" className="nav-link">Privacy</a><a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a><a href="mailto:support@emmmm.dev" className="nav-link">Contact</a></nav><p>© {new Date().getFullYear()} Always Light Mode</p></footer>
+      <footer className="shell site-footer"><BrandMark /><nav aria-label="Footer navigation"><a href="#privacy" className="nav-link" onClick={() => { const item = document.getElementById('privacy'); if (item instanceof HTMLDetailsElement) item.open = true; }}>Privacy</a><a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="nav-link">GitHub</a><a href="mailto:support@emmmm.dev" className="nav-link">Contact</a></nav><p>© {new Date().getFullYear()} Always Light Mode</p></footer>
     </div>
   );
 }

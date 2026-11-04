@@ -1,6 +1,6 @@
 import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
 import { Toaster } from 'sonner';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeftIcon as ArrowLeft } from '@phosphor-icons/react';
 import { BrandMark } from '@/components/brand-mark';
 import { Button } from '@/components/ui/button';
 import stylesheet from '@/styles/globals.css?url';
@@ -22,7 +22,7 @@ export const Route = createRootRoute({
     links: [{ rel: 'stylesheet', href: stylesheet }, { rel: 'icon', href: '/icon.png' }, { rel: 'preload', href: '/fonts/geist-400.ttf', as: 'font', type: 'font/ttf', crossOrigin: 'anonymous' }],
   }),
   component: Root,
-  notFoundComponent: () => <main id="main-content" tabIndex={-1} className="not-found"><BrandMark /><p className="eyebrow">404 / A wrong turn</p><h1 className="section-title">Let’s get you<br />back to the light.</h1><p className="text-lg text-muted-foreground">This page doesn’t exist. The homepage is a good place to start.</p><Button nativeButton={false} render={<a href="/" />}><ArrowLeft data-icon="inline-start" aria-hidden="true" />Back to home</Button></main>,
+  notFoundComponent: () => <main id="main-content" tabIndex={-1} className="not-found"><BrandMark /><p className="text-sm font-medium text-muted-foreground">404</p><h1 className="section-title">Let’s get you<br />back to the light.</h1><p className="text-lg text-muted-foreground">This page doesn’t exist. The homepage is a good place to start.</p><Button nativeButton={false} render={<a href="/" />}><ArrowLeft data-icon="inline-start" aria-hidden="true" />Back to home</Button></main>,
 });
 
 function Root() {
